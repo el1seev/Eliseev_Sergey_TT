@@ -1,0 +1,202 @@
+.navigation
+{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px rgb(150, 146, 146);
+}
+
+.navMenu
+{
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    flex-direction: row;
+    list-style-type: none;
+    padding: 0;
+}
+
+.navMenu .link:hover
+{
+    border-bottom: 2px solid rgb(37, 37, 37) ;
+}
+
+.navMenu .link:focus
+{
+    color: rgb(64, 169, 48);
+    border-bottom: 2px solid rgb(64, 169, 48);
+}
+
+/* .navMenu .link */
+.navMenu .link
+{
+    display: inline;
+    font-family: 'Raleway, sans-serif';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    text-decoration: none;
+    color: rgb(37, 37, 37);
+    text-transform: uppercase;
+    margin-right: 0px;
+}
+
+.home-logo
+{
+    position: absolute;
+    left: 50%;
+}
+
+.select
+{
+    font-size: 20px;
+    color: rgb(37, 37, 37);
+}
+
+.wrapOfCartAndCurrency
+{
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    width: fit-content;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.link
+{
+    display: flex;
+    flex-wrap: inherit;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 27px;
+    align-items: center;
+}
+.navMenu .link
+{
+    padding-bottom: 10px;
+}
+.counter-logo
+{
+    position: relative;
+    background-color: black;
+    border-radius: 50%;
+    z-index: 4;
+    height: 23px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 23px;
+    font-size: 15px;
+    margin-bottom: 25px;
+    margin-right: 15px;
+    margin-left: -10px;
+
+}
+
+.p-counter-logo
+{
+    z-index: 1;
+    position: absolute;
+    color: #fff;
+}
+
+.currency-switcher
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-right: 100px;
+}
+
+.currency-button
+{
+    width: fit-content;
+    border: none;
+    background-color: #fff;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    cursor: pointer;
+    transition: 0.8s;
+}
+
+.currency-active
+{
+    display: flex;
+    flex-direction: row;
+    transition: 0.6s;
+    align-items: center;
+    position: absolute;
+}
+
+.arrow
+{
+    transition: 0.8s;
+    transform: rotate(180deg);
+}
+
+.currency-active:hover .arrow
+{
+    rotate: -180deg;
+}
+
+.currency-active:hover .currency-ul
+{
+    visibility:visible;
+}
+
+.currency-ul
+{
+    display: flex;
+    /* visibility: hidden; */
+    width: 114px;
+    height: fit-content;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.082);
+    z-index: 100;
+    padding: 0;
+    margin-top: 200px;
+}
+
+.currency-li
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    transition: 0.4s;
+}
+
+.currency-li-button
+{
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    cursor: pointer;
+}
+
+.currency-li-button:hover
+{
+    background-color: rgb(217, 212, 212);
+}
+
+

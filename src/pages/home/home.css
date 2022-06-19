@@ -1,0 +1,25 @@
+.home
+{
+    display: block;
+    margin-top: 0px;
+    margin-right: 40px;
+    margin-left: 30PX;
+    height: fit-content;
+
+}
+
+.gallery
+{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.h1-cart
+{
+    margin: 60px;
+    width: fit-content;
+    text-transform: uppercase;
+}

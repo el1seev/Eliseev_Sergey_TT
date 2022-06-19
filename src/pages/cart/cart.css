@@ -1,0 +1,15 @@
+.cart
+{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.h1-cart
+{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+}

@@ -1,0 +1,179 @@
+.cart-item-component
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #9098a5;
+    border-top: 1px solid #9098a5;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: space-between;
+}
+
+.cart-item-showcase
+{
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 288px;
+    object-fit: cover;
+}
+
+.cart-item-info
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.brand
+{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1D1F22;
+    margin-bottom: 10px;
+}
+
+.name
+{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1D1F22;
+}
+
+.price
+{
+    margin-top: 10px;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 24px
+}
+
+.wrap-of-size
+{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.wrap-of-size-buttons
+{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+}
+
+.size
+{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.size-button
+{
+    background-color: aliceblue;
+    border: 1px solid #1D1F22;
+    width: 63px;
+    height: 45px;
+}
+
+.wrap-of-color
+{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    
+}
+
+.wrap-of-color-buttons
+{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+}
+
+.color
+{
+    font-weight: bold;
+}
+
+.color-button
+{
+    background-color: aliceblue;
+    border: none;
+    width: 32px;
+    height: 32px;
+}
+
+.wrap-of-price
+{
+    width: 134px;
+    height: 70px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.description
+{
+    font-size: 17px;
+}
+
+.wrong-wrap
+{
+    display: flex;
+    align-items: center;
+}
+
+.counter-buttons
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+    height: 100%;
+}
+
+.crease
+{
+    height: 45px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #fff;
+    transition: transform 0.2s; /* Animation */
+}
+
+.crease:active
+{
+    transform: scale(0.85);
+}
+
+.count-button
+{
+    /* position: relative; */
+}
+
+.count
+{
+    font-size: 25px;
+}

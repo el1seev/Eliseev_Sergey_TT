@@ -1,0 +1,267 @@
+.single-item-component
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.wrap-of-small-img
+{
+    display: flex;
+    flex-direction: column;
+    height: 680px;
+}
+
+.switch-image
+{
+    border: none;
+    height: fit-content;
+    width: fit-content;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.small-single-item-showcase
+{
+    margin-bottom: 15px;
+    height: 88px;
+    width: 88px;
+    object-fit: cover;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.small-single-item-showcase:hover
+{
+    box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.082);
+}
+
+.single-item-showcase
+{
+    display: block;
+    position: relative;
+    width: 750px;
+    height: 680px;
+    margin: 0px 70px 0px 35px;
+    object-fit: cover;
+}
+
+.single-item-info
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.brand
+{
+    font-weight: 600;
+    font-text: 30px;
+    line-height: 27px;
+}
+
+.name
+{
+    margin-top: 5px;
+    font-weight: 400;
+    font-text: 30px;
+    line-height: 27px;
+}
+
+.p-price
+{
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.price
+{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 18px;
+}
+
+.wrap-of-text
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap-of-text-buttons
+{
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+}
+.text
+{
+    font-weight: bold;
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    width: fit-content;
+    height: fit-content;
+    text-transform: uppercase;
+}
+
+.text-button
+{
+    background-color: aliceblue;
+    border: 1px solid #1D1F22;
+    color: black;
+    width: 63px;
+    height: 45px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-text: 16px;
+    line-height: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.text-button-active
+{
+    background-color: black;
+    color: #fff;
+    border: 1px solid #1D1F22;
+    width: 63px;
+    height: 45px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-text: 16px;
+    line-height: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.text-button:hover 
+{
+    background-color: black;
+    color: #fff;
+}
+
+.text-button:active
+{
+    background-color: black;
+    color: #fff;
+}
+
+.wrap-of-color
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap-of-color-buttons
+{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    /* padding: 0px; */
+    gap: 8px;
+}
+
+.color-div
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffffff;
+}
+
+.color-div-active
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #5ECE7B;
+}
+
+.color-div:hover
+{
+    border: 1px solid #5ECE7B;
+}
+
+.color-button
+{
+    /* background-color: aliceblue; */
+    /* border: 2px rgb(71, 71, 71); */
+    /* border: 1px solid #919494; */
+    border: 2px solid #f5f5f5;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.wrap-of-price
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.add-from-single
+{
+    background: #5ECE7B;
+    width: 292px;
+    height: 52px;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    font-text: 16px;
+    line-height: 120%;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.add-from-single:active
+{
+    transform: scale(0.9);
+}
+
+.add-from-single:hover
+{
+    background-color: #3f8a53;
+}
+
+.add-from-single-blocked
+{
+    background: #5ECE7B;
+    width: 292px;
+    height: 52px;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    font-text: 16px;
+    line-height: 120%;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.description
+{
+    margin-top: 20px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    width: 292px;
+}

@@ -1,0 +1,67 @@
+.currency-modal
+{
+    display: flex;
+    position: fixed;
+    height: 100vw;
+    width: 100vw;
+    pointer-events: all;
+    /* cursor: pointer; */
+    z-index: 100;
+}
+
+.currency-modal-hidden
+{
+    display: none;
+}
+
+.currency-ul
+{
+    display: flex;
+    width: 114px;
+    height: fit-content;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.082);
+    padding: 0;
+    position: absolute;
+    right: 0;
+    margin-right: 90px;
+    margin-top: 55px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.currency-ul-hidden
+{
+    display: none;
+}
+
+.currency-li
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    transition: 0.4s;
+}
+
+.currency-li-button
+{
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    cursor: pointer;
+}
+
+.currency-li-button:hover
+{
+    background-color: rgb(217, 212, 212);
+}

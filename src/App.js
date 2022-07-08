@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Routes,
   Route,
-  BrowserRouter,
   Navigate
 } from 'react-router-dom';
 
@@ -15,23 +14,46 @@ import Tech from './pages/tech/tech';
 import Clothes from './pages/clothes/clothes';
 import Cart from './pages/cart/cart';
 import SingleItem from './pages/single-item/single-item';
-import { getAllProducts } from './redux/actions/productsActions';
+import { getAllProducts} from './redux/actions/productsActions';
 import { getOtherData } from './redux/actions/other-actions';
 import { connect } from 'react-redux';
+import ModalCart from './components/modal-cart/modal-cart';
+import CurrencySwither from './components/currency-switcher/currency-swither';
 
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      showModal: false,
+      showCurrencyModal: false,
+    }
+    this.setShowModal = this.setShowModal.bind(this);
+    this.setCurrencyModal = this.setCurrencyModal.bind(this);
+  }
+
+  setShowModal = (value) => {
+    this.setState({showModal: value});
+  }
+
+  setCurrencyModal = (value) => {
+    this.setState({showCurrencyModal: value});
+  }
+
   componentDidMount(){
     this.props.getAllProducts();
-    this.props.getOtherData()
+    this.props.getOtherData();
   }
+
 
   render(){
     return (
 
-      <div className="App">
+      <div className={this.state.showModal  ? "App-modal-true" : "App-modal-false"}>
+        <>
+        <CurrencySwither setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal}/>
         <header>
-          <NaviBar/>
+          <NaviBar setShowModal={this.setShowModal} showModal={this.state.showModal} setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal}/>
         </header>
 
         <main>
@@ -45,6 +67,8 @@ class App extends React.Component {
             <Route path='*' element={<ErrorPage/>}/>
           </Routes>
         </main>
+        <ModalCart setShowModal={this.setShowModal} showModal={this.state.showModal}/>
+        </>
       </div>
     );
   }

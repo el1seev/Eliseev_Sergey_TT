@@ -1,0 +1,183 @@
+.modal
+{
+    display: flex;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(57, 55, 72, 0.22);
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.modal-hidden
+{
+    display: none;
+}
+
+.modal-cart
+{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 393px;
+    max-height: 300px;
+    max-height: 677px;
+    background: #FFFFFF;
+    right: 0;
+    margin-right: 90px;
+    cursor: default;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #aaaaaa #dedede;
+    scroll-behavior: smooth;
+}
+
+.modal-emty-cart
+{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 325px;
+    height: 677px;
+    background: #FFFFFF;
+    right: 0;
+    margin-right: 90px;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+
+.modal-bottom-buttons-wrap
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+    align-items: center;
+}
+
+.view-bag-button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #1D1F22;
+    padding: 16px 32px;
+    width: 140px;
+    height: 43px;
+    transition: .3s;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.link-to-cart
+{
+    text-decoration: none;
+    color: rgb(37, 37, 37);
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    margin: 0px 0px 0px 0px;
+}
+
+.link-to-cart:hover .view-bag-text
+{
+    color: rgb(255, 255, 255);
+}
+
+.check-out-button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    width: 140px;
+    height: 43px;
+    background: #5ECE7B;
+    border: none;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 120%;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.check-out-button:hover
+{
+    background-color: #3f8a53;
+}
+
+.view-bag-button:hover
+{
+    background: rgb(37, 37, 37);
+}
+
+.empty-text
+{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.my-bag-header-wrap
+{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+}
+
+.p-my-bag, .p-modal-qty
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+.p-modal-qty
+{
+    font-weight: 500;
+    margin-left: 3px;
+}
+
+.modal-wrap-of-price
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrongest
+{
+    width: 100%;
+}
+
+.p-total
+{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0px 20px 10px 20px;
+}
+
+.total-price
+{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+    margin: 0px 20px 10px 20px;
+}

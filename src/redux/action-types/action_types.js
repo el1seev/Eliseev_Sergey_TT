@@ -7,6 +7,7 @@ export const SET_TECH = "SET_TECH";
 export const SET_CLOTHES = "SET_CLOTHES";
 //____________________CART ACTION-TYPES
 export const PUSH_TO_CART = "PUSH_TO_CART";
+export const PUSH_TO_CART_PLP = "PUSH_TO_CART_PLP";
 export const SET_TO_CART = "SET_TO_CART";
 export const SET_TO_CART_ALREADY = "SET_TO_CART_ALREADY";
 export const MINUS_PRODUCT = "MINUS_PRODUCT";

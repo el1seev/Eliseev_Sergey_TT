@@ -12,7 +12,12 @@
 {
     display: flex;
     flex-direction: column;
-    height: 680px;
+    height: 511px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #aaaaaa #dedede;
+    scroll-behavior: smooth;
 }
 
 .switch-image
@@ -24,13 +29,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0px 10px 0px 0px
 }
 
 .small-single-item-showcase
 {
     margin-bottom: 15px;
-    height: 88px;
-    width: 88px;
+    height: 80px;
+    width: 79px;
     object-fit: cover;
     transition: transform 0.2s;
     cursor: pointer;
@@ -45,10 +51,10 @@
 {
     display: block;
     position: relative;
-    width: 750px;
-    height: 680px;
+    width: 610px;
+    height: 511px;
     margin: 0px 70px 0px 35px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .single-item-info
@@ -61,15 +67,20 @@
 .brand
 {
     font-weight: 600;
-    font-text: 30px;
     line-height: 27px;
+}
+
+.out-of-stock-alert
+{
+    font-weight: 600;
+    line-height: 27px;
+    color: #c25656;
 }
 
 .name
 {
     margin-top: 5px;
     font-weight: 400;
-    font-text: 30px;
     line-height: 27px;
 }
 
@@ -129,7 +140,6 @@
     font-family: 'Source Sans Pro';
     font-style: normal;
     font-weight: 400;
-    font-text: 16px;
     line-height: 18px;
     cursor: pointer;
     transition: 0.3s;
@@ -145,7 +155,6 @@
     font-family: 'Source Sans Pro';
     font-style: normal;
     font-weight: 400;
-    font-text: 16px;
     line-height: 18px;
     cursor: pointer;
     transition: 0.3s;
@@ -176,7 +185,6 @@
     width: fit-content;
     justify-content: center;
     align-items: center;
-    /* padding: 0px; */
     gap: 8px;
 }
 
@@ -203,9 +211,6 @@
 
 .color-button
 {
-    /* background-color: aliceblue; */
-    /* border: 2px rgb(71, 71, 71); */
-    /* border: 1px solid #919494; */
     border: 2px solid #f5f5f5;
     width: 32px;
     height: 32px;
@@ -226,7 +231,6 @@
     border: none;
     color: #fff;
     font-weight: 600;
-    font-text: 16px;
     line-height: 120%;
     cursor: pointer;
     transition: 0.5s;
@@ -250,7 +254,6 @@
     border: none;
     color: #fff;
     font-weight: 600;
-    font-text: 16px;
     line-height: 120%;
     opacity: 0.6;
     cursor: not-allowed;
@@ -258,10 +261,23 @@
 
 .description
 {
+    overflow: hidden;
+}
+
+.description-data
+{
     margin-top: 20px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     width: 292px;
+    max-height: 200px;
+    overflow-y: auto;
 }
+
+/* .show-more-button
+{
+    position: relative;
+    z-index: 100;
+} */

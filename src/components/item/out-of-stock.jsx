@@ -26,7 +26,7 @@ class ItemOutOfStock extends React.Component {
                             {
                                 (
                                     <p className="price-item">{compareTo(this.props.item, this.props.currentCurrency)}</p>
-                                    )
+                                )
                             }
                     </div>
 
@@ -45,8 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCurrentItem: (item) => dispatch(setCurrentItem(item))
+        setCurrentItem: (item) => dispatch(setCurrentItem(item)),
     }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps)(ItemOutOfStock);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemOutOfStock);

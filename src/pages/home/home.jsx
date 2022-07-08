@@ -1,24 +1,21 @@
 import React from 'react';
-import "./home.css";
 import { connect } from 'react-redux';
+import "./page.css";
 
 import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
-import { filterAllCategory } from '../../api';
+import { filterCategory } from '../../api';
 
 
 class Home extends React.Component {
-
     render(){
         return(
-            <div className='home'>
+            <div className='page-content'>
                 
-                <h1 className='h1-cart'>{filterAllCategory(this.props.categories)}</h1>
-
+                <h1 className='page-name'>{filterCategory(this.props.categories, "all")}</h1>
                 <div className='gallery'>
                 {   this.props.all !== undefined ? 
                     ( this.props.all.map(( item) => (
-                        // <Item key={item.id} item={item}/>
                         item.inStock === true ?
                         <ItemInStock key={item.id} item={item}/>
                         :
@@ -43,4 +40,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Home);

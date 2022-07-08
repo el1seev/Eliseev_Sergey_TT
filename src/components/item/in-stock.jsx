@@ -3,13 +3,15 @@ import { connect} from "react-redux";
 import { Link } from "react-router-dom";
 import { compareTo } from "../../api";
 import CartButton from "../../assets/logos/cartButton";
-import { pushToCart, setCurrentItem } from "../../redux/actions/productsActions";
+import { setCurrentItem, pushToCartPLP } from "../../redux/actions/productsActions";
 
 
 import "./item.css";
 
 class ItemInStock extends React.Component {
-    render(){
+
+    render()
+        {
         return(
                 <div className='item-component'>
                     <Link to={`/singleitem/${this.props.item.id}`} className="link-image"> 
@@ -23,14 +25,14 @@ class ItemInStock extends React.Component {
                             <div className="wrap-of-brand-name">
                                 <p className="brand-name-item">{this.props.item.brand} {this.props.item.name}</p>
                             </div>
-                            {
+                            { 
                                 (
                                     <p className="price-item">{compareTo(this.props.item, this.props.currentCurrency)}</p>
                                 )
                             }
                     </div>
 
-                        <button className="item-add-to-cart">
+                        <button className="item-add-to-cart" onClick={() => this.props.pushToCart(this.props.item)}>
                         <CartButton/>
                     </button>
 
@@ -48,8 +50,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        pushToCart: (item)=> dispatch(pushToCart(item)),
-        setCurrentItem: (item) => dispatch(setCurrentItem(item))
+        pushToCart: (item) => dispatch(pushToCartPLP(item)),
+        setCurrentItem: (item) => dispatch(setCurrentItem(item)),
     }
 }
 

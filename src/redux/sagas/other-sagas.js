@@ -1,4 +1,4 @@
-import { takeEvery, put, call, takeLatest, fork, select } from "redux-saga/effects";
+import { takeEvery, put, call, fork} from "redux-saga/effects";
 import { fetchOtherData } from "../../api/querys";
 import { GET_OTHER_DATA } from "../action-types/action_types";
 import { setCategories, setCurrencies } from "../actions/other-actions";
@@ -11,7 +11,7 @@ export function* handleOtherData(){
     console.log('set currencies', currencies);
     console.log('set categories', categories);
 
-    yield put(setCurrencies(currencies))
+    yield put(setCurrencies(currencies));
     yield put(setCategories(categories));
 }
 
@@ -21,5 +21,5 @@ export function* forkOtherData(){
 
 export function* watchOtherDataSaga(){
     console.log('start watchOtherDataSagaSaga...')
-    yield takeEvery(GET_OTHER_DATA, forkOtherData)
+    yield takeEvery(GET_OTHER_DATA, forkOtherData);
 }

@@ -1,4 +1,4 @@
-import { SET_CATEGORIES, SET_CURRENCIES, SET_CURRENT_CURRENCY } from "../action-types/action_types"
+import { SET_CATEGORIES, SET_CURRENCIES, SET_CURRENT_CURRENCY } from "../action-types/action_types";
 
 
 const initialState = {

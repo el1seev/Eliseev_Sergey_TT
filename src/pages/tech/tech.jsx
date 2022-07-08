@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import "../home/home.css";
+import "../home/page.css";
 
 import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
-import { filterTechCategory } from '../../api';
+import { filterCategory } from '../../api';
 
 
 class Tech extends React.Component {
     render(){
         return(
-            <div className='home'>
-                <h1 className='h1-cart'>{filterTechCategory(this.props.categories)}</h1>
+            <div className='page-content'>
+                <h1 className='page-name'>{filterCategory(this.props.categories, "tech")}</h1>
                 <div className='gallery'>
                 {
                     ( this.props.tech.map(( item) => (
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Tech)
+export default connect(mapStateToProps)(Tech);

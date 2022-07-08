@@ -6,14 +6,15 @@ class WrapOfColorButtons extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            active: null
+            active: null,
         }
         this.setActive = this.setActive.bind(this);
     }
 
     setActive = (value) => {
         this.setState({active: value});
-        this.props.setSelectedAttribute({ name: this.props.item.name, value: value})
+        this.props.setSelectedAttribute({ name: this.props.item.name, value: value});
+        this.props.setActiveValue(value);
     };
 
     render(){
@@ -26,20 +27,22 @@ class WrapOfColorButtons extends React.Component{
                     <div className="wrap-of-color-buttons">
                     {
                     (this.props.item.items.map((element) => (
-                        this.props.item.selected !== undefined ?
-                        this.props.item.selected === element.value ? 
+                        this.props.item.selected !== undefined && this.props.item.selected === element.value 
+                        ? 
                         <div className="color-div-active">
                             <button className="color-button" onClick={ () => this.setActive(element.value)} style={{backgroundColor: element.value}}/>
                         </div>
                         :
-                        <div className="color-div">
-                            <button className="color-button" onClick={ () => this.setActive(element.value)} style={{backgroundColor: element.value}}/>
-                        </div>
-                        :
-                        <div className="color-div">
-                            <button className="color-button" onClick={ () => this.setActive(element.value)} style={{backgroundColor: element.value}}/>
-                        </div>
-                        )))
+                        this.props.cartButtons ?
+                            <div className="color-div">
+                                <button className="color-button" style={{backgroundColor: element.value}}/>
+                            </div>
+                            :
+                            <div className="color-div">
+                                <button className="color-button" onClick={ () => this.setActive(element.value)} style={{backgroundColor: element.value}}/>
+                            </div>
+                        ))
+                    )
                     }
                     </div>
                 </div>
@@ -58,9 +61,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSelectedAttribute: (attribute) => dispatch(setSelectedAttribute(attribute))
+        setSelectedAttribute: (attribute) => dispatch(setSelectedAttribute(attribute)),
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrapOfColorButtons)
+export default connect(mapStateToProps, mapDispatchToProps)(WrapOfColorButtons);

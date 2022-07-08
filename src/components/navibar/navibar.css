@@ -7,7 +7,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 2px rgb(150, 146, 146);
+    /* box-shadow: 0px 2px rgb(150, 146, 146); */
 }
 
 .navMenu
@@ -18,17 +18,12 @@
     flex-direction: row;
     list-style-type: none;
     padding: 0;
+    margin-left: 100px;
 }
 
 .navMenu .link:hover
 {
     border-bottom: 2px solid rgb(37, 37, 37) ;
-}
-
-.navMenu .link:focus
-{
-    color: rgb(64, 169, 48);
-    border-bottom: 2px solid rgb(64, 169, 48);
 }
 
 /* .navMenu .link */
@@ -43,7 +38,8 @@
     text-decoration: none;
     color: rgb(37, 37, 37);
     text-transform: uppercase;
-    margin-right: 0px;
+    margin-right: 30px;
+    margin-left: 0px;
 }
 
 .home-logo
@@ -66,6 +62,7 @@
     width: fit-content;
     align-items: center;
     justify-content: flex-end;
+    margin-right: 50px;
 }
 
 .link
@@ -76,6 +73,7 @@
     margin-right: 30px;
     height: 27px;
     align-items: center;
+    cursor: pointer;
 }
 .navMenu .link
 {
@@ -130,73 +128,23 @@
     transition: 0.8s;
 }
 
-.currency-active
+.currency-icon
 {
     display: flex;
     flex-direction: row;
     transition: 0.6s;
     align-items: center;
     position: absolute;
+    margin-right: 10px;
 }
 
-.arrow
+.arrow-down
 {
-    transition: 0.8s;
-    transform: rotate(180deg);
+    transition: 0.3s;
 }
 
-.currency-active:hover .arrow
+.arrow-up
 {
-    rotate: -180deg;
+    rotate: 180deg;
+    transition: 0.3s;
 }
-
-.currency-active:hover .currency-ul
-{
-    visibility:visible;
-}
-
-.currency-ul
-{
-    display: flex;
-    /* visibility: hidden; */
-    width: 114px;
-    height: fit-content;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.082);
-    z-index: 100;
-    padding: 0;
-    margin-top: 200px;
-}
-
-.currency-li
-{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    transition: 0.4s;
-}
-
-.currency-li-button
-{
-    width: 100%;
-    border: none;
-    background-color: #fff;
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 160%;
-    cursor: pointer;
-}
-
-.currency-li-button:hover
-{
-    background-color: rgb(217, 212, 212);
-}
-
-

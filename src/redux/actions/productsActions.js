@@ -1,66 +1,74 @@
-import { GET_ALL_PRODUCTS,SET_ALL_PRODUCTS, SET_TECH, SET_TO_CART, SET_CLOTHES, PUSH_TO_CART, REMOVE_FROM_CART, SET_TO_CART_ALREADY, INCREASE_ITEM_QTY, DECREASE_ITEM_QTY, MINUS_PRODUCT, SET_CURRENT_ITEM, SET_CURRENT_ATTRIBUTE, SET_SELECTED_ATTRIBUTE} from "../action-types/action_types";
+import { GET_ALL_PRODUCTS,SET_ALL_PRODUCTS, SET_TECH, SET_TO_CART, SET_CLOTHES, PUSH_TO_CART, REMOVE_FROM_CART, SET_TO_CART_ALREADY,
+INCREASE_ITEM_QTY, DECREASE_ITEM_QTY, SET_CURRENT_ITEM, SET_CURRENT_ATTRIBUTE, SET_SELECTED_ATTRIBUTE, PUSH_TO_CART_PLP} from "../action-types/action_types";
 
 //get all products
-export const getAllProducts = () => (
-    {
+export const getAllProducts = () => {
+    return {
     type: GET_ALL_PRODUCTS,
     }
-);
+};
 //set all products 
-export const setAllProducts = (products) => (
-    {
+export const setAllProducts = (products) => {
+    return {
         type: SET_ALL_PRODUCTS,
         payload: products
     }
-);
+};
 //set tech 
-export const setTech = (tech) => (
-    {
+export const setTech = (tech) => {
+    return {
         type: SET_TECH,
         payload: tech,
     }
-);
+};
 //set CLOTHES
-export const setClothes = (clothes) => (
-    {
+export const setClothes = (clothes) => {
+    return {
             type: SET_CLOTHES,
             payload: clothes,
     }
-);
+};
 //set CURRENT ITEM page
-export const setCurrentItem = (item) => (
-    {
+export const setCurrentItem = (item) => {
+    return {
         type: SET_CURRENT_ITEM,
-        payload: item
+        payload: item,
     }
-);
+};
 //set Current Attribute of  Current item
-export const setCurrentAttribute = (attribute) => (
-    {
+export const setCurrentAttribute = (attribute) => {
+    return {
         type: SET_CURRENT_ATTRIBUTE,
         payload: attribute,
     }
-);
+};
 
-export const setSelectedAttribute = (attribute) => (
-    {
+export const setSelectedAttribute = (attribute) => {
+    return {
         type: SET_SELECTED_ATTRIBUTE,
         payload: attribute,
     }
-);
+};
 
 //cart action
-export const pushToCart = (itemID) => {
+export const pushToCart = (item) => {
     return {
         type: PUSH_TO_CART,
-        payload: itemID,
+        payload: item,
+    }
+}
+
+export const pushToCartPLP = (item) => {
+    return {
+        type: PUSH_TO_CART_PLP,
+        payload: item,
     }
 }
 
 export const setToCart = (item) => {
     return {
         type: SET_TO_CART,
-        payload: item
+        payload: item,
     }
 }
 
@@ -71,33 +79,25 @@ export const setToCartAlready = (item) => {
     }
 }
 
-export const removeFromCart = (itemID) => {
+export const removeFromCart = (item) => {
     return {
         type: REMOVE_FROM_CART,
-        payload: itemID
+        payload: item,
     }
 }
 
-export const minusProduct = (itemID) => {
-    return {
-        type: MINUS_PRODUCT,
-        payload: itemID
-    }
-}
-
-//qty products
-export const increaseItemQty = (itemID) => {
+//INCREASE/DECREASE qty products
+export const increaseItemQty = (item) => {
     return {
         type: INCREASE_ITEM_QTY,
         payload: 
-            itemID,
-    };
-};
-
-export const decreaseItemQty = (itemID) => {
-    return {
-        type: DECREASE_ITEM_QTY,
-        payload: itemID
+            item,
     }
 }
 
+export const decreaseItemQty = (item) => {
+    return {
+        type: DECREASE_ITEM_QTY,
+        payload: item,
+    }
+}

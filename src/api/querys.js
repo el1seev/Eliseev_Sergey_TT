@@ -33,15 +33,14 @@ export const fetchAllProducts = async() => {
           }
         }
     `
-    }
+  }
 
     const response = await axios({
         method: "POST",
         url: "http://localhost:4000",
-        data: query
+        data: query,
     })
     const result = response.data;
-    console.log(result)
     return result;
 }
 
@@ -64,9 +63,8 @@ export const fetchOtherData = async() => {
   const response = await axios({
       method: "POST",
       url: "http://localhost:4000",
-      data: query
+      data: query,
   })
   const result = response.data;
-  console.log(result)
   return result;
 }

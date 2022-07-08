@@ -1,11 +1,10 @@
-.home
+.page-content
 {
     display: block;
     margin-top: 0px;
     margin-right: 40px;
     margin-left: 30PX;
     height: fit-content;
-
 }
 
 .gallery
@@ -17,9 +16,11 @@
     margin-top: 20px;
 }
 
-.h1-cart
+.page-name
 {
     margin: 60px;
     width: fit-content;
     text-transform: uppercase;
+    margin-top: 0px;
+    padding-top: 50px;
 }

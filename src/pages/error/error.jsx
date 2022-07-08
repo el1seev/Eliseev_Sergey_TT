@@ -6,7 +6,7 @@ class ErrorPage extends React.Component {
     render(){
         return (
             <div className="error_page">
-                <p className='error_p'>ERROR<br/>Incorrect path...</p>
+                <p className='error_info'>ERROR<br/>Incorrect path...</p>
             </div>
         );
     }

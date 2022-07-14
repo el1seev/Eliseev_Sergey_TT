@@ -1,11 +1,11 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client'
-import { ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import {Provider} from 'react-redux';
-import store from './redux/store';
-import App from './App';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import App from "./App";
 
 import './index.css';
 
@@ -21,11 +21,10 @@ root.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
       <BrowserRouter>
-        <App/>
+        <App />
       </BrowserRouter>
     </Provider>
   </ApolloProvider>
 )
-
 
 reportWebVitals();

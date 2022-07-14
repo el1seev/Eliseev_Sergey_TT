@@ -202,14 +202,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-right: 18px;
+    margin-right: 8px;
     height: 168px;
 }
 
 .modal-crease
 {
-    height: 24px;
-    width: 24px;
+    height: fit-content;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,30 +1,30 @@
-import React from 'react';
+import React from "react";
 
 import {
   Routes,
   Route,
   Navigate
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import ErrorPage from './pages/error/error';
-import Home from './pages/home/home';
-import NaviBar from './components/navibar/navibar';
-import './App.css'
-import Tech from './pages/tech/tech';
-import Clothes from './pages/clothes/clothes';
-import Cart from './pages/cart/cart';
-import SingleItem from './pages/single-item/single-item';
-import { getAllProducts} from './redux/actions/productsActions';
-import { getCartInfo, getOtherData } from './redux/actions/other-actions';
-import { connect } from 'react-redux';
-import ModalCart from './components/modal-cart/modal-cart';
-import CurrencySwither from './components/currency-switcher/currency-swither';
-import { URLS } from './api/constans';
-import PurchaseModal from './components/purchase-modal/purchase-modal';
+import ErrorPage from "./pages/error/error";
+import Home from "./pages/home/home";
+import NaviBar from "./components/navibar/navibar";
+import "./App.css";
+import Tech from "./pages/tech/tech";
+import Clothes from "./pages/clothes/clothes";
+import Cart from "./pages/cart/cart";
+import SingleItem from "./pages/single-item/single-item";
+import { getAllProducts } from "./redux/actions/productsActions";
+import { getCartInfo, getOtherData } from "./redux/actions/other-actions";
+import { connect } from "react-redux";
+import ModalCart from "./components/modal-cart/modal-cart";
+import CurrencySwither from "./components/currency-switcher/currency-swither";
+import { URLS } from "./api/constans";
+import PurchaseModal from "./components/purchase-modal/purchase-modal";
 
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       showModal: false,
@@ -37,54 +37,58 @@ class App extends React.Component {
   }
 
   setShowModal = (value) => {
-    this.setState({showModal: value});
+    this.setState({ showModal: value });
   }
 
   setCurrencyModal = (value) => {
-    this.setState({showCurrencyModal: value});
+    this.setState({ showCurrencyModal: value });
   }
 
   setPurchaseModal = (value) => {
-    this.setState({showPurchaseModal: value});
+    this.setState({ showPurchaseModal: value });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getAllProducts();
     this.props.getOtherData();
     this.props.getCartInfo();
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.cartItems !== this.props.cartItems || prevProps.currentCurrency !== this.props.currentCurrency){
+  componentDidUpdate(prevProps) {
+    if (prevProps.cartItems !== this.props.cartItems || prevProps.currentCurrency !== this.props.currentCurrency) {
       this.props.getCartInfo();
     }
   }
 
 
-  render(){
+  render() {
     return (
 
-      <div className={this.state.showModal || this.state.showPurchaseModal  ? "App-modal-true" : "App-modal-false"}>
+      <div className={this.state.showModal || this.state.showPurchaseModal ? "App-modal-true" : "App-modal-false"}>
         <>
-        <PurchaseModal setPurchaseModal={this.setPurchaseModal} showPurchaseModal={this.state.showPurchaseModal}/>
-        <CurrencySwither setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal}/>
-        <header>
-          <NaviBar setShowModal={this.setShowModal} showModal={this.state.showModal} setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal}/>
-        </header>
+          <PurchaseModal setPurchaseModal={this.setPurchaseModal} showPurchaseModal={this.state.showPurchaseModal} />
+          <CurrencySwither setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal} />
+          <header>
+            <NaviBar setShowModal={this.setShowModal} showModal={this.state.showModal} setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal} />
+          </header>
 
-        <main>
-          <Routes>
-            <Route path={`${URLS.HOME_PAGE}`} element={<Home/>}/>
-            <Route path={`${URLS.ALL_PAGE}`} element={<Home/>}/>
-            <Route path={`${URLS.CLOTHES_PAGE}`} element={<Clothes/>}/>
-            <Route path={`${URLS.TECH_PAGE}`} element={<Tech/>}/>
-            <Route path={`${URLS.CART_PAGE}`} element={<Cart setPurchaseModal={this.setPurchaseModal}/>}/>
-            <Route path={`${URLS.SINGLE_ITEM_PAGE}:id`} element={ this.props.current !== null ? <SingleItem/> : <Navigate to={`${URLS.HOME_PAGE}`} />}/>
-            <Route path={`${URLS.ERROR_PAGE}`} element={<ErrorPage/>}/>
-          </Routes>
-        </main>
+          <main>
+            <Routes>
+              <Route path={`${URLS.HOME_PAGE}`} element={<Home />} />
+              <Route path={`${URLS.ALL_PAGE}`} element={<Home />} />
+              <Route path={`${URLS.CLOTHES_PAGE}`} element={<Clothes />} />
+              <Route path={`${URLS.TECH_PAGE}`} element={<Tech />} />
+              <Route path={`${URLS.CART_PAGE}`} element={<Cart setPurchaseModal={this.setPurchaseModal} />} />
+              <Route path={`${URLS.SINGLE_ITEM_PAGE}:id`} 
+              element={this.props.current !== null ? 
+              <SingleItem />
+              : 
+              <Navigate to={`${URLS.HOME_PAGE}`} />} />
+              <Route path={`${URLS.ERROR_PAGE}`} element={<ErrorPage />} />
+            </Routes>
+          </main>
 
-        <ModalCart setPurchaseModal={this.setPurchaseModal} setShowModal={this.setShowModal} showModal={this.state.showModal}/>
+          <ModalCart setPurchaseModal={this.setPurchaseModal} setShowModal={this.setShowModal} showModal={this.state.showModal} />
         </>
       </div>
     );
@@ -92,7 +96,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     current: state.products.currentItem,
     cartItems: state.products.cartItems,
     currentCurrency: state.otherData.currentCurrency,
@@ -101,9 +105,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      getAllProducts: () => dispatch(getAllProducts()),
-      getOtherData: () => dispatch(getOtherData()),
-      getCartInfo: () => dispatch(getCartInfo()),
+    getAllProducts: () => dispatch(getAllProducts()),
+    getOtherData: () => dispatch(getOtherData()),
+    getCartInfo: () => dispatch(getCartInfo()),
   }
 }
 

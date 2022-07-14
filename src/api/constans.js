@@ -14,4 +14,7 @@ export const FILTER_PARAMS = {
     TECH: 'tech',
     CLOTHES: 'clothes',
 }
+export const TAX = {
+    VALUE: 0.21,
+}
 

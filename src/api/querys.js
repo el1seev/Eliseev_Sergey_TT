@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { client } from "..";
 
-export const fetchAllProducts = async() => {
+export const fetchAllProducts = async () => {
   const query = await client.query({
     query: QUERYES.ALL_PRODUCTS,
   });
@@ -10,11 +10,11 @@ export const fetchAllProducts = async() => {
   return result;
 }
 
-export const fetchOtherData = async() => {
+export const fetchOtherData = async () => {
   const query = await client.query({
     query: QUERYES.OTHER_DATA,
   });
-  
+
   const result = structuredClone(query);
   return result;
 }

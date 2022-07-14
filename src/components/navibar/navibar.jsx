@@ -9,9 +9,8 @@ import Arrow from "../../assets/logos/currencyArrow";
 
 
 class NaviBar extends React.Component {
-    constructor(){
+    constructor() {
         super();
-        this.navigationWidth = React.createRef();
         this.state = {
             totalQty: 0,
             active: false,
@@ -21,44 +20,47 @@ class NaviBar extends React.Component {
     }
 
     setTotalQty = (qty) => {
-        this.setState({totalQty: qty});
+        this.setState({ totalQty: qty });
     }
 
     setActive = (value) => {
-        this.setState({active : value});
+        this.setState({ active: value });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let items = 0;
         this.setTotalQty(items);
     }
 
-    
-    componentDidUpdate(prevProps){
-        if( prevProps.cartItems !== this.props.cartItems){
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.cartItems !== this.props.cartItems) {
             let items = 0;
 
-            if(this.props.cartItems !== undefined){
-                this.props.cartItems.forEach(( item) => {
+            if (this.props.cartItems !== undefined) {
+                this.props.cartItems.forEach((item) => {
                     items += item.qty;
                 })
-            this.setTotalQty(items);
+                this.setTotalQty(items);
             }
         }
 
     }
 
-    render(){
+    render() {
         const activeLink = {
             color: "rgb(64, 169, 48)",
             borderBottom: "2px solid rgb(64, 169, 48)",
         }
-        return(
+        return (
             <nav className="navigation" ref={this.navigationWidth} >
                 <ul className="navMenu">
                     {
-                        this.props.categories.map( (links) => (
-                            <li><Link to={`/${links.name}`} className="link" style={this.state.active === links.name ? activeLink : {}} onClick={ () => this.setActive(links.name)}>{links.name}</Link></li>
+                        this.props.categories.map((links) => (
+                            <li><Link to={`/${links.name}`} className="link" style={this.state.active === links.name ? activeLink : {}}
+                                onClick={() => this.setActive(links.name)}>
+                                {links.name}
+                            </Link></li>
                         ))
                     }
                 </ul>
@@ -71,20 +73,21 @@ class NaviBar extends React.Component {
 
                     <div className="currency-switcher">
                         <div className="currency-icon">
-                            <button className="currency-button" onClick={ this.props.showCurrencyModal ? () => this.props.setCurrencyModal(false) : () => this.props.setCurrencyModal(true)}>
+                            <button className="currency-button"
+                                onClick={() => this.props.setCurrencyModal(!this.props.showCurrencyModal)}>
                                 {this.props.currentCurrency}
                             </button>
-                            <Arrow rotate={this.props.showCurrencyModal}/>
+                            <Arrow rotate={this.props.showCurrencyModal} />
                         </div>
                     </div>
-                    
-                    <div className="link" onClick={ this.props.showModal ? () => this.props.setShowModal(false) : () => this.props.setShowModal(true)}>
-                        <CartLogo/>
-                        <div className="counter-logo" style={this.state.totalQty !== 0 ? {} :{visibility: 'hidden'}}>
-                            <p className="p-counter-logo">{this.state.totalQty}</p>
+
+                    <button className="cart-modal-button" onClick={() => this.props.setShowModal(!this.props.showModal)}>
+                        <CartLogo />
+                        <div className="counter-logo" style={!!this.state.totalQty ? {} : { visibility: 'hidden' }}>
+                            <p className="counter-logo-value">{this.state.totalQty}</p>
                         </div>
-                    </div>
-                    
+                    </button>
+
                 </div>
             </nav>
         );

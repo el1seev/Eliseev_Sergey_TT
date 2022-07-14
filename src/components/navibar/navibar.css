@@ -5,9 +5,8 @@
     position: relative;
     height: fit-content;
     width: 100%;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
-    /* box-shadow: 0px 2px rgb(150, 146, 146); */
 }
 
 .navMenu
@@ -21,6 +20,7 @@
     margin-left: 100px;
     position: relative;
     z-index: 50;
+    flex-grow: 1;
 }
 
 .navMenu .link:hover
@@ -44,19 +44,6 @@
     margin-left: 0px;
 }
 
-.app-logo
-{
-    width: 100%;
-    justify-content: center;
-    position: absolute;
-    display: flex;
-}
-
-.app-logo-hidden
-{
-    display: none;
-}
-
 .select
 {
     font-size: 20px;
@@ -74,17 +61,20 @@
     margin-right: 50px;
     position: relative;
     z-index: 50;
+    flex-grow: 1.5;
+    margin-left: 15px;
 }
 
-.link
+.cart-modal-button
 {
     display: flex;
-    flex-wrap: inherit;
     margin-left: 30px;
     margin-right: 30px;
     height: 27px;
     align-items: center;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 .navMenu .link
 {
@@ -103,12 +93,10 @@
     width: 23px;
     font-size: 15px;
     margin-bottom: 25px;
-    margin-right: 15px;
     margin-left: -10px;
-
 }
 
-.p-counter-logo
+.counter-logo-value
 {
     z-index: 1;
     position: absolute;

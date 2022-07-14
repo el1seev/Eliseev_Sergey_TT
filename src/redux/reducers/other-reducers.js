@@ -2,15 +2,15 @@ import { SET_CART_INFO, SET_CATEGORIES, SET_CURRENCIES, SET_CURRENT_CURRENCY, SE
 
 
 const initialState = {
-    categories : [],
-    currencies : [],
+    categories: [],
+    currencies: [],
     currentCurrency: '$',
     cartInfo: undefined,
     loading: true,
 }
 
-export const otherData = ( state = initialState, { type, payload}) => {
-    switch(type){
+export const otherData = (state = initialState, { type, payload }) => {
+    switch (type) {
         case SET_CATEGORIES:
             return {
                 ...state,

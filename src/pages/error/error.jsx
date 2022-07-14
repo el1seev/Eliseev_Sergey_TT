@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import './error.css';
+import "./error.css";
 
 class ErrorPage extends React.Component {
-    render(){
+    render() {
         return (
             <div className="error_page">
-                <p className='error_info'>ERROR<br/>Incorrect path...</p>
+                <p className='error_info'>ERROR<br />Incorrect path...</p>
             </div>
         );
     }

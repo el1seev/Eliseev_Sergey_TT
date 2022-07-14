@@ -1,10 +1,12 @@
-import { GET_ALL_PRODUCTS,SET_ALL_PRODUCTS, SET_TECH, SET_TO_CART, SET_CLOTHES, PUSH_TO_CART, REMOVE_FROM_CART, SET_TO_CART_ALREADY,
-INCREASE_ITEM_QTY, DECREASE_ITEM_QTY, SET_CURRENT_ITEM, SET_CURRENT_ATTRIBUTE, SET_SELECTED_ATTRIBUTE, PUSH_TO_CART_PLP, CLEAR_CART} from "../action-types/action_types";
+import {
+    GET_ALL_PRODUCTS, SET_ALL_PRODUCTS, SET_TECH, SET_TO_CART, SET_CLOTHES, PUSH_TO_CART, REMOVE_FROM_CART, SET_TO_CART_ALREADY,
+    INCREASE_ITEM_QTY, DECREASE_ITEM_QTY, SET_CURRENT_ITEM, SET_CURRENT_ATTRIBUTE, SET_SELECTED_ATTRIBUTE, PUSH_TO_CART_PLP, CLEAR_CART
+} from "../action-types/action_types";
 
 //get all products
 export const getAllProducts = () => {
     return {
-    type: GET_ALL_PRODUCTS,
+        type: GET_ALL_PRODUCTS,
     }
 };
 //set all products 
@@ -24,8 +26,8 @@ export const setTech = (tech) => {
 //set CLOTHES
 export const setClothes = (clothes) => {
     return {
-            type: SET_CLOTHES,
-            payload: clothes,
+        type: SET_CLOTHES,
+        payload: clothes,
     }
 };
 //set CURRENT ITEM page

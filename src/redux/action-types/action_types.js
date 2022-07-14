@@ -1,4 +1,4 @@
-//____________________CLOTHES ACTION-TYPES
+//____________________PRODUCTS ACTION-TYPES
 //-----------GET
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 //-----------SET

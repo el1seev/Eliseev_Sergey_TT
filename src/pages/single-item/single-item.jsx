@@ -11,13 +11,18 @@ import { pushToCart } from "../../redux/actions/productsActions";
 class SingleItem extends React.PureComponent {
     constructor(props){
         super(props);
+        this.descriptionHeight = React.createRef();
         this.state = {
             images: null,
             currentAttLength: null,
             activeValue: null,
+            descriptionHeight: 0,
+            fullDescription: false,
         }
         this.setMainView = this.setMainView.bind(this);
         this.setCurrentAttLength = this.setCurrentAttLength.bind(this);
+        this.setDescriptionHeight = this.setDescriptionHeight.bind(this); 
+        this.setFullDescription = this.setFullDescription.bind(this);
     }
 
         setMainView = (img) => {
@@ -30,9 +35,18 @@ class SingleItem extends React.PureComponent {
 
         setActiveValue = (value) => {
             this.setState({ activeValue: value});
-        }
+        };
+
+        setDescriptionHeight = (value) => {
+            this.setState({ descriptionHeight: value});
+        };
+
+        setFullDescription = (value) => {
+            this.setState({ fullDescription: value});
+        };
 
         componentDidMount(){
+            this.setDescriptionHeight(this.descriptionHeight.current.offsetHeight);
             this.setMainView(this.props.currentItem.gallery[0]);
             if(this.props.currentItem.attributes === undefined){
                 this.setCurrentAttLength(undefined);
@@ -104,8 +118,16 @@ class SingleItem extends React.PureComponent {
                         <button className="add-from-single-blocked">ADD TO CART</button>
                 }
                 <div className="description">
-                    <div className="description-data" dangerouslySetInnerHTML={createMarkup(this.props.currentItem.description)}/>
-                    {/* <button className="show-more-button">SHOW MORE</button> */}
+                    <div ref={this.descriptionHeight} className={this.state.descriptionHeight >= 150 && !this.state.fullDescription? "description-data-more" : "description-data-less"} dangerouslySetInnerHTML={createMarkup(this.props.currentItem.description)}/>
+                    {
+                        this.state.descriptionHeight >= 150 ?
+                            this.state.fullDescription ?
+                                <button className="show-more-button" onClick={() => this.setFullDescription(false)}>SHOW LESS</button>
+                                :
+                                <button className="show-more-button" onClick={() => this.setFullDescription(true)}>SHOW MORE</button>
+                            :
+                            null
+                    }
                 </div>
             </div>
         </div>

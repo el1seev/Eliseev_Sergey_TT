@@ -1,5 +1,5 @@
 import { GET_ALL_PRODUCTS,SET_ALL_PRODUCTS, SET_TECH, SET_TO_CART, SET_CLOTHES, PUSH_TO_CART, REMOVE_FROM_CART, SET_TO_CART_ALREADY,
-INCREASE_ITEM_QTY, DECREASE_ITEM_QTY, SET_CURRENT_ITEM, SET_CURRENT_ATTRIBUTE, SET_SELECTED_ATTRIBUTE, PUSH_TO_CART_PLP} from "../action-types/action_types";
+INCREASE_ITEM_QTY, DECREASE_ITEM_QTY, SET_CURRENT_ITEM, SET_CURRENT_ATTRIBUTE, SET_SELECTED_ATTRIBUTE, PUSH_TO_CART_PLP, CLEAR_CART} from "../action-types/action_types";
 
 //get all products
 export const getAllProducts = () => {
@@ -90,8 +90,7 @@ export const removeFromCart = (item) => {
 export const increaseItemQty = (item) => {
     return {
         type: INCREASE_ITEM_QTY,
-        payload: 
-            item,
+        payload: item,
     }
 }
 
@@ -99,5 +98,11 @@ export const decreaseItemQty = (item) => {
     return {
         type: DECREASE_ITEM_QTY,
         payload: item,
+    }
+}
+//CLEAR CART 
+export const clearCart = () => {
+    return {
+        type: CLEAR_CART,
     }
 }

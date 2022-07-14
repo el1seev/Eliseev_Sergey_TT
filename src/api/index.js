@@ -8,7 +8,6 @@ export const compareTo = (currencyItem, currencyGlobal) => {
     
     for( let i = 0; i <= currencyItem.prices.length; i++){
         if( currencyItem.prices[i].currency.symbol === currencyGlobal){
-            console.log({ symbol: currencyItem.prices[i].currency.symbol, amount: currencyItem.prices[i].amount});
             currencyData.push(currencyItem.prices[i].currency.symbol,  currencyItem.prices[i].amount);
             return currencyData;
         } else {
@@ -32,7 +31,7 @@ export const lengthOfShipped = (shipped) => {
     const shippedArray = [];
     shipped.attributes.map( (shippedElement) => (
         shippedElement.selected === undefined ? 
-        console.log(shipped.attributes.length)
+        null
         :
         shippedArray.push(1)
     ));
@@ -92,8 +91,6 @@ export const checkAttInCartAlready = (cart, shippedItem) => {
 
 export const compareAttributes = (productInCart, shippedItem) => {
     const res = [];
-    const attributesFromArrays = [];
-    const removedFirst = res.shift();
 
         if(productInCart.id === shippedItem.id){
         productInCart.attributes.map( (childElement) => (
@@ -128,4 +125,24 @@ export const setDefaultValues = (shippedProduct) => {
     } else {
         return shippedProduct;
     }
+}
+//calculate cart items info as well as qty of cart items, price of items and tax for it 
+export const getCartItemsInfo = (cartItems, currentCurrency) => {
+    let items = 0;
+    let price = 0;
+    let tax = 0;
+
+    if(cartItems !== undefined){
+        cartItems.map(( item) => {
+            items += item.qty;
+            let itemPrice = compareTo(item, currentCurrency);
+            price += item.qty * itemPrice[1];
+        })
+    }
+    let fixPrice = price.toFixed(2);
+    tax = fixPrice*0.21;
+    let fixTax = tax.toFixed(2);
+
+    let result = {price: fixPrice, tax: fixTax, qty: items};
+    return result;
 }

@@ -1,0 +1,29 @@
+.purchase-modal
+{
+    position: absolute;
+    display: flex;
+    position: fixed;
+    height: 100%;
+    width: 100vw;
+    pointer-events: all;
+    z-index: 1000;
+    justify-content: center;
+    background: rgba(57, 55, 72, 0.22);
+}
+
+.purchase-modal-hidden
+{
+    display: none;
+}
+
+.purchase-content
+{
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+

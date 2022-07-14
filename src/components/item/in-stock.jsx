@@ -2,6 +2,7 @@ import React from "react";
 import { connect} from "react-redux";
 import { Link } from "react-router-dom";
 import { compareTo } from "../../api";
+import { URLS } from "../../api/constans";
 import CartButton from "../../assets/logos/cartButton";
 import { setCurrentItem, pushToCartPLP } from "../../redux/actions/productsActions";
 
@@ -14,9 +15,9 @@ class ItemInStock extends React.Component {
         {
         return(
                 <div className='item-component'>
-                    <Link to={`/singleitem/${this.props.item.id}`} className="link-image"> 
+                    <Link to={`${URLS.SINGLE_ITEM_PAGE}${this.props.item.id}`} className="link-image"> 
                             <button className="load-current-button" onClick={() => this.props.setCurrentItem(this.props.item)}>
-                                <img src={this.props.item.gallery[0]} className="showcase"/>
+                                <img src={this.props.item.gallery[0]} className="showcase" alt='in stock item'/>
                             </button>
                     </Link>
 

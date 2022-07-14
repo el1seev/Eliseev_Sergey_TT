@@ -19,6 +19,8 @@
     list-style-type: none;
     padding: 0;
     margin-left: 100px;
+    position: relative;
+    z-index: 50;
 }
 
 .navMenu .link:hover
@@ -42,10 +44,17 @@
     margin-left: 0px;
 }
 
-.home-logo
+.app-logo
 {
+    width: 100%;
+    justify-content: center;
     position: absolute;
-    left: 50%;
+    display: flex;
+}
+
+.app-logo-hidden
+{
+    display: none;
 }
 
 .select
@@ -63,6 +72,8 @@
     align-items: center;
     justify-content: flex-end;
     margin-right: 50px;
+    position: relative;
+    z-index: 50;
 }
 
 .link

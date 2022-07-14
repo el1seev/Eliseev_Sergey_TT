@@ -6,84 +6,19 @@ import { EmptySad } from '../../assets/logos/sad';
 import CartItem from '../../components/cart-item/cart-item';
 import "../home/page.css";
 import "./cart.css";
+import { URLS } from '../../api/constans';
+import { clearCart } from '../../redux/actions/productsActions';
 
 class Cart extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            totalQty: 0,
-            totalPrice: 0,
-            totalTax: 0,
-        }
-        this.setTotalQty = this.setTotalQty.bind(this);
-        this.setTotalPrice = this.setTotalPrice.bind(this);
-        this.setTotalTax = this.setTotalTax.bind(this);
+        this.setShowPurchaseModal = this.setShowPurchaseModal.bind(this);
+    }
+    setShowPurchaseModal = () => {
+        this.props.setPurchaseModal(true);
+        this.props.clearCart();
     }
 
-    setTotalQty = (qty) => {
-        this.setState({totalQty: qty});
-    }
-
-    setTotalPrice = (price) => {
-        this.setState({totalPrice: price});
-    }
-
-    setTotalTax = (tax) => {
-        this.setState({totalTax: tax});
-    }
-
-    componentDidMount(){
-
-        let items = 0;
-        let price = 0;
-        let tax = 0;
-
-        if(this.props.cartItems !== undefined){
-            this.props.cartItems.map(( item) => {
-                items += item.qty;
-                let itemPrice = compareTo(item, this.props.currentCurrency);
-                price += item.qty * itemPrice[1];
-            })
-        
-        let fixPrice = price.toFixed(2);
-        tax = fixPrice*0.21;
-        let fixTax = tax.toFixed(2);
-        
-
-        this.setTotalQty(items);
-        this.setTotalPrice(fixPrice);
-        this.setTotalTax(fixTax);
-        } else {
-            this.setTotalQty(items);
-            this.setTotalPrice(price);
-            this.setTotalTax(tax);
-        }
-    }
-
-    
-    componentDidUpdate(prevProps){
-        if( prevProps.cartItems !== this.props.cartItems){
-
-            let items = 0;
-            let price = 0;
-    
-            if(this.props.cartItems !== undefined){
-                this.props.cartItems.map(( item) => {
-                    items += item.qty;
-                    let itemPrice = compareTo(item, this.props.currentCurrency);
-                    price += item.qty * itemPrice[1];
-                })
-            
-            let fixPrice = price.toFixed(2);
-            let tax = fixPrice*0.21;
-            let fixTax = tax.toFixed(2);
-
-            this.setTotalQty(items);
-            this.setTotalPrice(fixPrice);
-            this.setTotalTax(fixTax);
-            }
-        }
-    }
     render(){
         return(
             <div className='cart'>
@@ -98,15 +33,15 @@ class Cart extends React.Component {
                             </div>
                                 <div className='wrap-of-cart-info'>
                                     <div className='cart-p-figure'>
-                                        <p className='cart-p'>Tax 21%: </p><p className='cart-figure'> {this.props.currentCurrency}{this.state.totalTax}</p>
+                                        <p className='cart-p'>Tax 21%: </p><p className='cart-figure'> {this.props.currentCurrency}{this.props.cartInfo.tax}</p>
                                     </div>
                                     <div className='cart-p-figure'>
-                                        <p className='cart-p'>Quantity: </p><p className='cart-figure'> {this.state.totalQty}</p>
+                                        <p className='cart-p'>Quantity: </p><p className='cart-figure'> {this.props.cartInfo.qty}</p>
                                     </div>
                                     <div className='cart-p-figure'>
-                                        <p className='cart-p'>Total: </p><p className='cart-figure'> {this.props.currentCurrency}{this.state.totalPrice}</p>
+                                        <p className='cart-p'>Total: </p><p className='cart-figure'> {this.props.currentCurrency}{this.props.cartInfo.price}</p>
                                     </div>
-                                    <button className='order-button'>ORDER</button>
+                                    <button className='order-button' onClick={() => this.setShowPurchaseModal()}>ORDER</button>
                                 </div>
                         </>
                     :
@@ -116,7 +51,7 @@ class Cart extends React.Component {
                         </div>
                         
                         <button className='link-button'>
-                            <Link to='/all' className='shopping-link'>Shopping ahead</Link>
+                            <Link to={`${URLS.ALL_PAGE}`} className='shopping-link'>Shopping ahead</Link>
                         </button>
                     </div>
                 }
@@ -129,7 +64,14 @@ const mapStateToProps = (state) => {
     return {
         cartItems: state.products.cartItems,
         currentCurrency: state.otherData.currentCurrency,
+        cartInfo: state.otherData.cartInfo,
     }
 }
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearCart: () => dispatch(clearCart()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

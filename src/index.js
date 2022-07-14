@@ -1,35 +1,31 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client'
-import App from './App';
+import { ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-// import { ApolloClient, ApolloProvider } from '@apollo/client';
 import {Provider} from 'react-redux';
 import store from './redux/store';
+import App from './App';
 
 import './index.css';
 
-// const client = new ApolloClient({
-//   uri: 'http://localhost:4000'
-// })
+export const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache(),
+})
+
 
 const container = document.getElementById('root');
 const root = createRoot(container)
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
-  </Provider>
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </Provider>
+  </ApolloProvider>
 )
 
-// const root = createRoot(document.getElementById('root'))
-// root.render(
-//   <BrowserRouter>
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   </BrowserRouter>
-// )
 
 reportWebVitals();

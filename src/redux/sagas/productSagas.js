@@ -3,19 +3,22 @@ import { GET_ALL_PRODUCTS, PUSH_TO_CART, PUSH_TO_CART_PLP, SET_SELECTED_ATTRIBUT
 import { fetchAllProducts } from "../../api/querys";
 import { setAllProducts, setTech, setClothes, setCurrentAttribute, setToCart, setToCartAlready } from "../actions/productsActions";
 import { checkAttInCartAlready, setDefaultValues } from "../../api";
+import { FILTER_PARAMS } from "../../api/constans";
+import { setLoadingStatus } from "../actions/other-actions";
 
-//fetch all products from graph 
-export function* handleAllProducts(){
-    const products = yield call(fetchAllProducts);
-    const allProducts = products.data.category.products;
-    const clothes = allProducts.filter( item => item.category === "clothes");
-    const tech = allProducts.filter( item => item.category === "tech");
+//fetch data from graphql server 
+export function* handleData(){
+    const response = yield call(fetchAllProducts);
+    const allProducts = response.data.category.products;
+    const clothes = allProducts.filter( item => item.category === FILTER_PARAMS.CLOTHES);
+    const tech = allProducts.filter( item => item.category === FILTER_PARAMS.TECH);
 
-    yield put(setTech(tech));
     yield put(setAllProducts(allProducts));
+    yield put(setTech(tech));
     yield put(setClothes(clothes));
+    yield put(setLoadingStatus(response.loading))
 }
-//work with selected attributes
+//work with selected attributes of current item
 export function* addSelectedAttribute(attribute){
     const current = yield select( (state) => state.products.currentItem);
     current.attributes.map( item => (
@@ -31,19 +34,16 @@ export function* addSelectedAttribute(attribute){
 export function* pushGoodToCart(good){
     const cartProducts = yield select( (state) => state.products.cartItems);
     const filterId = cartProducts.find( productInCart => productInCart.id === good.payload.id);
-    const product =  structuredClone(good.payload);
+    const product = structuredClone(good.payload);
 
     if ( filterId === undefined){
         yield put(setToCart(product))
     } else {
         const response = checkAttInCartAlready(cartProducts, product);
-
         if (  response === true){  
-            console.log('TRUE', response)
-            yield put(setToCartAlready(product))
+            yield put(setToCartAlready(product));
         } else {
-            console.log('FALSE', response)
-            yield put(setToCart(product))
+            yield put(setToCart(product));
         }
     }
 }
@@ -70,7 +70,7 @@ export function* pushToCartFromPLP(good){
 }
 
 export function* forkProductSagas(){
-    yield fork (handleAllProducts);
+    yield fork (handleData);
 }
 
 

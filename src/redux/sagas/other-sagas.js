@@ -1,18 +1,23 @@
-import { takeEvery, put, call, fork} from "redux-saga/effects";
+import { takeEvery, put, call, fork, select, take} from "redux-saga/effects";
+import { getCartItemsInfo } from "../../api";
 import { fetchOtherData } from "../../api/querys";
-import { GET_OTHER_DATA } from "../action-types/action_types";
-import { setCategories, setCurrencies } from "../actions/other-actions";
+import { GET_CART_INFO, GET_OTHER_DATA } from "../action-types/action_types";
+import { setCartInfo, setCategories, setCurrencies } from "../actions/other-actions";
 
 export function* handleOtherData(){
     const res = yield call(fetchOtherData);
     const currencies = res.data.currencies;
     const categories = res.data.categories;
 
-    console.log('set currencies', currencies);
-    console.log('set categories', categories);
-
     yield put(setCurrencies(currencies));
     yield put(setCategories(categories));
+}
+export function* calculateCartInfo(){
+    const cartItems = yield select( (state) => state.products.cartItems);
+    const currentCurrency = yield select( (state) => state.otherData.currentCurrency);
+
+    const result = getCartItemsInfo(cartItems, currentCurrency);
+    yield put(setCartInfo(result));
 }
 
 export function* forkOtherData(){
@@ -20,6 +25,6 @@ export function* forkOtherData(){
 }
 
 export function* watchOtherDataSaga(){
-    console.log('start watchOtherDataSagaSaga...')
     yield takeEvery(GET_OTHER_DATA, forkOtherData);
+    yield takeEvery(GET_CART_INFO, calculateCartInfo);
 }

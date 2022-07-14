@@ -11,6 +11,7 @@ import Arrow from "../../assets/logos/currencyArrow";
 class NaviBar extends React.Component {
     constructor(){
         super();
+        this.navigationWidth = React.createRef();
         this.state = {
             totalQty: 0,
             active: false,
@@ -53,7 +54,7 @@ class NaviBar extends React.Component {
             borderBottom: "2px solid rgb(64, 169, 48)",
         }
         return(
-            <nav className="navigation">
+            <nav className="navigation" ref={this.navigationWidth} >
                 <ul className="navMenu">
                     {
                         this.props.categories.map( (links) => (
@@ -62,7 +63,7 @@ class NaviBar extends React.Component {
                     }
                 </ul>
 
-                <div className="home-logo">
+                <div className="app-logo" >
                     <BagLogo />
                 </div>
 

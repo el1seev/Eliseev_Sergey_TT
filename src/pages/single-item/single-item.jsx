@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createMarkup, compareTo, lengthOfShipped } from "../../api";
-import WrapOfTextButtons from "../../components/wraps-of-buttons/wrap-text-buttons";
-import WrapOfColorButtons from "../../components/wraps-of-buttons/wrap-color-buttons";
+import TextButtons from "../../components/buttons/text-buttons";
+import ColorButtons from "../../components/buttons/color-buttons";
 
 import "./single-item.css";
 import { pushToCart } from "../../redux/actions/productsActions";
@@ -62,40 +62,51 @@ class SingleItem extends React.PureComponent {
     }
 
     render() {
+        const { currentItem } = this.props;
+        const props = {
+            currentItem: {
+                brand: currentItem.brand,
+                name: currentItem.name,
+                gallery: currentItem.gallery,
+                inStock: currentItem.inStock,
+                description: currentItem.description,
+                attributes: currentItem.attributes,
+            }
+        }
+        let { currentItem: { brand, name, gallery, inStock, description, attributes } } = props;
         return (
-
             <div className="single-item-component">
 
                 <div className="wrap-of-small-img">
                     {
-                        (this.props.currentItem.gallery.map((images) => (
+                        (gallery.map((images) => (
                             <button className="switch-image" onClick={() => this.setMainView(images)}>
-                                <img src={images} className="small-single-item-showcase" alt={this.props.currentItem.name} />
+                                <img src={images} className="small-single-item-showcase" alt={name} />
                             </button>
                         )))
                     }
                 </div>
 
-                <img src={this.state.images} className="single-item-showcase" alt={this.props.currentItem.name} />
+                <img src={this.state.images} className="single-item-showcase" alt={name} />
 
                 <div className="single-item-info">
-                    <h1 className="brand">{this.props.currentItem.brand}</h1>
-                    <h2 className="name">{this.props.currentItem.name}</h2>
+                    <h1 className="brand">{brand}</h1>
+                    <h2 className="name">{name}</h2>
                     {
-                        this.props.currentItem.inStock ?
+                        inStock ?
                             null
                             :
                             <p className="out-of-stock-alert">OUT OF STOCK</p>
                     }
 
                     {
-                        (this.props.currentItem.attributes.map(item => (
-                            item.length !== 0 ?
+                        (attributes.map(property => (
+                            property.length !== 0 ?
                                 (
-                                    item.type === 'text' ?
-                                        <WrapOfTextButtons item={item} setActiveValue={this.setActiveValue} />
+                                    property.type === 'text' ?
+                                        <TextButtons property={property} setActiveValue={this.setActiveValue} />
                                         :
-                                        <WrapOfColorButtons item={item} setActiveValue={this.setActiveValue} />
+                                        <ColorButtons property={property} setActiveValue={this.setActiveValue} />
                                 )
                                 :
                                 <></>
@@ -106,14 +117,14 @@ class SingleItem extends React.PureComponent {
                         <p className="p-price">PRICE:</p>
                         {
                             (
-                                <p className="price">{compareTo(this.props.currentItem, this.props.currentCurrency)}</p>
+                                <p className="price">{compareTo(currentItem, this.props.currentCurrency)}</p>
                             )
                         }
                     </div>
                     {
-                        this.props.currentItem.inStock && this.props.currentItem.attributes.length === this.state.currentAttLength ?
+                        inStock && attributes.length === this.state.currentAttLength ?
                             <button className="add-from-single" 
-                            onClick={() => this.props.pushToCart(this.props.currentItem)}>ADD TO CART</button>
+                            onClick={() => this.props.pushToCart(currentItem)}>ADD TO CART</button>
                             :
                             <button className="add-from-single-blocked">ADD TO CART</button>
                     }
@@ -123,7 +134,7 @@ class SingleItem extends React.PureComponent {
                                 "description-data-more"
                                 :
                                 "description-data-less"}
-                            dangerouslySetInnerHTML={createMarkup(this.props.currentItem.description)} />
+                            dangerouslySetInnerHTML={createMarkup(description)} />
                         {
                             this.state.descriptionHeight >= 150 ?
                                 this.state.fullDescription ?

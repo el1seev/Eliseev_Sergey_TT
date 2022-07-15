@@ -66,7 +66,7 @@
     margin: 0;
 }
 
-.modal-cart-item-component .wrap-of-size
+.modal-cart-item-component .wrap-of-text
 {
     display: flex;
     flex-direction: column;
@@ -216,6 +216,7 @@
     border: none;
     background-color: #fff;
     transition: transform 0.2s;
+    padding: 0;
 }
 
 .modal-count-button

@@ -10,29 +10,38 @@ import { setCurrentItem, pushToCartPLP } from "../../redux/actions/productsActio
 import "./item.css";
 
 class ItemInStock extends React.Component {
-
     render() {
+        const { item } = this.props;
+        const props = {
+            item: {
+                id: item.id,
+                brand: item.brand,
+                name: item.name,
+                gallery: item.gallery,
+            }
+        }
+        let { item: { id, brand, name, gallery, } } = props;
         return (
             <div className='item-component'>
-                <Link to={`${URLS.SINGLE_ITEM_PAGE}${this.props.item.id}`} className="link-image">
-                    <button className="load-current-button" onClick={() => this.props.setCurrentItem(this.props.item)}>
-                        <img src={this.props.item.gallery[0]} className="showcase" alt='in stock item' />
+                <Link to={`${URLS.SINGLE_ITEM_PAGE}${id}`} className="link-image">
+                    <button className="load-current-button" onClick={() => this.props.setCurrentItem(item)}>
+                        <img src={gallery[0]} className="showcase" alt='in stock item' />
                     </button>
                 </Link>
 
                 <div className="item-info">
                     <div className="wrap-of-p-item">
                         <div className="wrap-of-brand-name">
-                            <p className="brand-name-item">{this.props.item.brand} {this.props.item.name}</p>
+                            <p className="brand-name-item">{brand} {name}</p>
                         </div>
                         {
                             (
-                                <p className="price-item">{compareTo(this.props.item, this.props.currentCurrency)}</p>
+                                <p className="price-item">{compareTo(item, this.props.currentCurrency)}</p>
                             )
                         }
                     </div>
 
-                    <button className="item-add-to-cart" onClick={() => this.props.pushToCart(this.props.item)}>
+                    <button className="item-add-to-cart" onClick={() => this.props.pushToCart(item)}>
                         <CartButton />
                     </button>
 

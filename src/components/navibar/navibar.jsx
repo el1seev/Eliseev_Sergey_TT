@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import BagLogo from "../../assets/logos/bagLogo";
 import CartLogo from "../../assets/logos/cartLogo";
@@ -13,18 +13,12 @@ class NaviBar extends React.Component {
         super();
         this.state = {
             totalQty: 0,
-            active: false,
         };
         this.setTotalQty = this.setTotalQty.bind(this);
-        this.setActive = this.setActive.bind(this);
     }
 
     setTotalQty = (qty) => {
         this.setState({ totalQty: qty });
-    }
-
-    setActive = (value) => {
-        this.setState({ active: value });
     }
 
     componentDidMount() {
@@ -56,11 +50,13 @@ class NaviBar extends React.Component {
             <nav className="navigation" ref={this.navigationWidth} >
                 <ul className="navMenu">
                     {
-                        this.props.categories.map((links) => (
-                            <li><Link to={`/${links.name}`} className="link" style={this.state.active === links.name ? activeLink : {}}
-                                onClick={() => this.setActive(links.name)}>
-                                {links.name}
-                            </Link></li>
+                        this.props.categories.map((link) => (
+                            <li>
+                                <NavLink to={`/${link.name}`} className="link"
+                                style={({ isActive }) => { if (isActive) { return activeLink } }}>
+                                    {link.name}
+                                </NavLink>
+                            </li>
                         ))
                     }
                 </ul>

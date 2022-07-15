@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 import { setCurrentAttribute } from "../../redux/actions/productsActions";
 
-class WrapOfButtons extends React.Component {
+class TextButtons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,22 +19,29 @@ class WrapOfButtons extends React.Component {
 
 
     render() {
-
+        const { property } = this.props;
+        const props = {
+            property: {
+                name: property.name,
+                selected: property.selected,
+            }
+        }
+        let { property: { name, selected } } = props;
         return (
             <>
                 {
                     (<div className="wrap-of-text">
-                        <p className="text">{this.props.item.name}:</p>
+                        <p className="text">{name}:</p>
                         <div className="wrap-of-text-buttons">
-                            {(this.props.item.items.map((element) => (
-                                this.props.item.selected !== undefined && this.props.item.selected === element.value
+                            {(property.items.map((element) => (
+                                selected !== undefined && selected === element.value
                                     ?
                                     <button className="text-button-active">{element.value}</button>
                                     :
                                     this.props.cartButtons ?
                                         <button className="text-button">{element.value}</button>
                                         :
-                                        <button className="text-button" onClick={() => this.setActive(this.props.item.name, element.value)} >{element.value}</button>
+                                        <button className="text-button" onClick={() => this.setActive(name, element.value)} >{element.value}</button>
                             )))
                             }
                         </div>
@@ -57,4 +64,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrapOfButtons);
+export default connect(mapStateToProps, mapDispatchToProps)(TextButtons);

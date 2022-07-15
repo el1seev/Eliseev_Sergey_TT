@@ -2,8 +2,8 @@ import React from "react";
 import Increase from "../../assets/img/increase.png";
 import Decrease from "../../assets/img/decrease.png";
 import { compareTo } from "../../api";
-import WrapOfTextButtons from "../../components/wraps-of-buttons/wrap-text-buttons";
-import WrapOfColorButtons from "../../components/wraps-of-buttons/wrap-color-buttons";
+import TextButtons from "../buttons/text-buttons";
+import ColorButtons from "../buttons/color-buttons";
 import Next from "../../assets/img/next.png";
 import Prev from "../../assets/img/prev.png";
 
@@ -54,21 +54,32 @@ class CartItem extends React.Component {
     }
 
     render() {
+        const { item } = this.props;
+        const props = {
+            item: {
+                brand: item.brand,
+                name: item.name,
+                gallery: item.gallery,
+                attributes: item.attributes,
+                qty: item.qty,
+            }
+        }
+        let { item: { brand, name, gallery, attributes, qty} } = props;
         return (
             <div className="cart-item-component">
                 <div className="cart-item-info">
-                    <h1 className="brand">{this.props.item.brand}</h1>
-                    <h2 className="name">{this.props.item.name}</h2>
+                    <h1 className="brand">{brand}</h1>
+                    <h2 className="name">{name}</h2>
 
-                    <p className="price">{compareTo(this.props.item, this.props.currentCurrency)}</p>
+                    <p className="price">{compareTo(item, this.props.currentCurrency)}</p>
                     {
-                        (this.props.item.attributes.map(item => (
-                            item.length !== 0 ?
+                        (attributes.map(property => (
+                            property.length !== 0 ?
                                 (
-                                    item.type === 'text' ?
-                                        <WrapOfTextButtons item={item} cartButtons={true} />
+                                    property.type === 'text' ?
+                                        <TextButtons property={property} cartButtons={true} />
                                         :
-                                        <WrapOfColorButtons item={item} cartButtons={true} />
+                                        <ColorButtons property={property} cartButtons={true} />
                                 )
                                 :
                                 <></>
@@ -79,17 +90,17 @@ class CartItem extends React.Component {
                 <div className="counter-showcase-wrap">
                     <div className="counter-buttons">
                         <button className="crease">
-                            <img className="count-button" src={Increase} onClick={() => this.props.increase(this.props.item)} />
+                            <img className="count-button" src={Increase} onClick={() => this.props.increase(item)} />
                         </button>
-                        <p className="count">{this.props.item.qty}</p>
+                        <p className="count">{qty}</p>
                         {
-                            this.props.item.qty >= 2 ?
+                            qty >= 2 ?
                                 <button className="crease">
-                                    <img className="count-button" src={Decrease} onClick={() => this.props.decrease(this.props.item)} />
+                                    <img className="count-button" src={Decrease} onClick={() => this.props.decrease(item)} />
                                 </button>
                                 :
                                 <button className="crease">
-                                    <img className="count-button" src={Decrease} onClick={() => this.props.remove(this.props.item)} />
+                                    <img className="count-button" src={Decrease} onClick={() => this.props.remove(item)} />
                                 </button>
                         }
                     </div>
@@ -97,7 +108,7 @@ class CartItem extends React.Component {
                     <div className="cart-item-gallery">
                         <img src={this.state.currentImg} className="cart-item-showcase" />
                         {
-                            this.props.item.gallery.length !== 1 ?
+                            gallery.length !== 1 ?
                                 <div className="wrap-of-gallery-buttons">
                                     <button className="previous-button-gallery" onClick={() => this.setPrevImg()}>
                                         <img className="previous-img" src={Prev} />

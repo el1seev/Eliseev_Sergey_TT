@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./page.css";
-
 import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
 import { filterCategory } from "../../api";
 import { FILTER_PARAMS } from "../../api/constans";
+import PropTypes from "prop-types";
 
 
 class Home extends React.Component {
@@ -31,16 +31,18 @@ class Home extends React.Component {
     }
 
     render() {
-        return (
-            <div className='page-content'>
+        const { all, categories } = this.props;
+        const { loading } = this.state;
 
-                <h1 className='page-name'>{filterCategory(this.props.categories, FILTER_PARAMS.ALL)}</h1>
-                <div className='gallery'>
+        return (
+            <div className="page-content">
+                <h1 className="page-name">{filterCategory(categories, FILTER_PARAMS.ALL)}</h1>
+                <div className="gallery">
                     {
-                        this.state.loading ?
+                        loading ?
                             <p>Loading...</p>
                             :
-                            (this.props.all.map((item) => (
+                            (all.map((item) => (
                                 item.inStock ?
                                     <ItemInStock key={item.id} item={item} />
                                     :
@@ -51,6 +53,12 @@ class Home extends React.Component {
             </div>
         )
     }
+}
+
+Home.propTypes = {
+    all: PropTypes.array,
+    categories: PropTypes.array,
+    loading: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => {

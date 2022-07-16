@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { createMarkup, compareTo, lengthOfShipped } from "../../api";
 import TextButtons from "../../components/buttons/text-buttons";
 import ColorButtons from "../../components/buttons/color-buttons";
-
 import "./single-item.css";
 import { pushToCart } from "../../redux/actions/productsActions";
+import PropTypes from "prop-types";
 
 
 class SingleItem extends React.PureComponent {
@@ -62,18 +62,10 @@ class SingleItem extends React.PureComponent {
     }
 
     render() {
-        const { currentItem } = this.props;
-        const props = {
-            currentItem: {
-                brand: currentItem.brand,
-                name: currentItem.name,
-                gallery: currentItem.gallery,
-                inStock: currentItem.inStock,
-                description: currentItem.description,
-                attributes: currentItem.attributes,
-            }
-        }
-        let { currentItem: { brand, name, gallery, inStock, description, attributes } } = props;
+        const { currentItem, pushToCart, currentCurrency } = this.props;
+        let { brand, name, gallery, inStock, description, attributes } = currentItem;
+        const { images, currentAttLength, descriptionHeight, fullDescription } = this.state;
+
         return (
             <div className="single-item-component">
 
@@ -87,7 +79,7 @@ class SingleItem extends React.PureComponent {
                     }
                 </div>
 
-                <img src={this.state.images} className="single-item-showcase" alt={name} />
+                <img src={images} className="single-item-showcase" alt={name} />
 
                 <div className="single-item-info">
                     <h1 className="brand">{brand}</h1>
@@ -103,7 +95,7 @@ class SingleItem extends React.PureComponent {
                         (attributes.map(property => (
                             property.length !== 0 ?
                                 (
-                                    property.type === 'text' ?
+                                    property.type === "text" ?
                                         <TextButtons property={property} setActiveValue={this.setActiveValue} />
                                         :
                                         <ColorButtons property={property} setActiveValue={this.setActiveValue} />
@@ -117,27 +109,27 @@ class SingleItem extends React.PureComponent {
                         <p className="p-price">PRICE:</p>
                         {
                             (
-                                <p className="price">{compareTo(currentItem, this.props.currentCurrency)}</p>
+                                <p className="price">{compareTo(currentItem, currentCurrency)}</p>
                             )
                         }
                     </div>
                     {
-                        inStock && attributes.length === this.state.currentAttLength ?
+                        inStock && attributes.length === currentAttLength ?
                             <button className="add-from-single" 
-                            onClick={() => this.props.pushToCart(currentItem)}>ADD TO CART</button>
+                            onClick={() => pushToCart(currentItem)}>ADD TO CART</button>
                             :
                             <button className="add-from-single-blocked">ADD TO CART</button>
                     }
                     <div className="description">
                         <div ref={this.descriptionHeight}
-                            className={this.state.descriptionHeight >= 150 && !this.state.fullDescription ?
+                            className={descriptionHeight >= 150 && !fullDescription ?
                                 "description-data-more"
                                 :
                                 "description-data-less"}
                             dangerouslySetInnerHTML={createMarkup(description)} />
                         {
-                            this.state.descriptionHeight >= 150 ?
-                                this.state.fullDescription ?
+                            descriptionHeight >= 150 ?
+                                fullDescription ?
                                     <button className="show-more-button" onClick={() => this.setFullDescription(false)}>SHOW LESS</button>
                                     :
                                     <button className="show-more-button" onClick={() => this.setFullDescription(true)}>SHOW MORE</button>
@@ -149,6 +141,18 @@ class SingleItem extends React.PureComponent {
             </div>
         );
     }
+}
+//        let { brand, name, gallery, inStock, description, attributes } = currentItem;
+SingleItem.propTypes = {
+    currentItem: PropTypes.object,
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    gallery: PropTypes.array,
+    description: PropTypes.string,
+    attributes: PropTypes.array,
+    inStock: PropTypes.bool,
+    currentCurrency: PropTypes.string,
+    pushToCart: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {

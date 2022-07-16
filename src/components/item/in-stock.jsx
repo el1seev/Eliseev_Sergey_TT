@@ -5,27 +5,19 @@ import { compareTo } from "../../api";
 import { URLS } from "../../api/constans";
 import CartButton from "../../assets/logos/cartButton";
 import { setCurrentItem, pushToCartPLP } from "../../redux/actions/productsActions";
-
-
+import PropTypes from "prop-types";
 import "./item.css";
 
 class ItemInStock extends React.Component {
     render() {
-        const { item } = this.props;
-        const props = {
-            item: {
-                id: item.id,
-                brand: item.brand,
-                name: item.name,
-                gallery: item.gallery,
-            }
-        }
-        let { item: { id, brand, name, gallery, } } = props;
+        const { item, currentCurrency, setCurrentItem } = this.props;
+        const { id, brand, name, gallery } = item;
+
         return (
-            <div className='item-component'>
+            <div className="item-component">
                 <Link to={`${URLS.SINGLE_ITEM_PAGE}${id}`} className="link-image">
-                    <button className="load-current-button" onClick={() => this.props.setCurrentItem(item)}>
-                        <img src={gallery[0]} className="showcase" alt='in stock item' />
+                    <button className="load-current-button" onClick={() => setCurrentItem(item)}>
+                        <img src={gallery[0]} className="showcase" alt={`in stock" ${name}`} />
                     </button>
                 </Link>
 
@@ -36,7 +28,7 @@ class ItemInStock extends React.Component {
                         </div>
                         {
                             (
-                                <p className="price-item">{compareTo(item, this.props.currentCurrency)}</p>
+                                <p className="price-item">{compareTo(item, currentCurrency)}</p>
                             )
                         }
                     </div>
@@ -49,6 +41,15 @@ class ItemInStock extends React.Component {
             </div>
         );
     }
+}
+
+ItemInStock.propTypes = {
+    item: PropTypes.object,
+    id: PropTypes.string,
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    gallery: PropTypes.array,
+    setCurrentItem: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {

@@ -62,14 +62,17 @@ class App extends React.Component {
 
 
   render() {
-    return (
+    const { currentItem } = this.props;
+    const { showModal, showCurrencyModal, showPurchaseModal } = this.state;
 
-      <div className={this.state.showModal || this.state.showPurchaseModal ? "App-modal-true" : "App-modal-false"}>
+    return (
+      <div className={showModal || showPurchaseModal ? "App-modal-true" : "App-modal-false"}>
         <>
-          <PurchaseModal setPurchaseModal={this.setPurchaseModal} showPurchaseModal={this.state.showPurchaseModal} />
-          <CurrencySwither setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal} />
+          <PurchaseModal setPurchaseModal={this.setPurchaseModal} showPurchaseModal={showPurchaseModal} />
+          <CurrencySwither setCurrencyModal={this.setCurrencyModal} showCurrencyModal={showCurrencyModal} />
           <header>
-            <NaviBar setShowModal={this.setShowModal} showModal={this.state.showModal} setCurrencyModal={this.setCurrencyModal} showCurrencyModal={this.state.showCurrencyModal} />
+            <NaviBar setShowModal={this.setShowModal} showModal={showModal} setCurrencyModal={this.setCurrencyModal}
+              showCurrencyModal={showCurrencyModal} />
           </header>
 
           <main>
@@ -79,16 +82,16 @@ class App extends React.Component {
               <Route path={`${URLS.CLOTHES_PAGE}`} element={<Clothes />} />
               <Route path={`${URLS.TECH_PAGE}`} element={<Tech />} />
               <Route path={`${URLS.CART_PAGE}`} element={<Cart setPurchaseModal={this.setPurchaseModal} />} />
-              <Route path={`${URLS.SINGLE_ITEM_PAGE}:id`} 
-              element={this.props.current !== null ? 
-              <SingleItem />
-              : 
-              <Navigate to={`${URLS.HOME_PAGE}`} />} />
+              <Route path={`${URLS.SINGLE_ITEM_PAGE}:id`}
+                element={currentItem !== null ?
+                  <SingleItem />
+                  :
+                  <Navigate to={`${URLS.HOME_PAGE}`} />} />
               <Route path={`${URLS.ERROR_PAGE}`} element={<ErrorPage />} />
             </Routes>
           </main>
 
-          <ModalCart setPurchaseModal={this.setPurchaseModal} setShowModal={this.setShowModal} showModal={this.state.showModal} />
+          <ModalCart setPurchaseModal={this.setPurchaseModal} setShowModal={this.setShowModal} showModal={showModal} />
         </>
       </div>
     );
@@ -97,7 +100,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    current: state.products.currentItem,
+    currentItem: state.products.currentItem,
     cartItems: state.products.cartItems,
     currentCurrency: state.otherData.currentCurrency,
   }

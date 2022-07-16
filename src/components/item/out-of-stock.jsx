@@ -4,27 +4,20 @@ import { Link } from "react-router-dom";
 import { compareTo } from "../../api";
 import { URLS } from "../../api/constans";
 import { setCurrentItem } from "../../redux/actions/productsActions";
-
+import PropTypes from "prop-types";
 import "./item.css";
 
 class ItemOutOfStock extends React.Component {
     render() {
-        const { item } = this.props;
-        const props = {
-            item: {
-                id: item.id,
-                brand: item.brand,
-                name: item.name,
-                gallery: item.gallery,
-            }
-        }
-        let { item: { id, brand, name, gallery, } } = props;
+        const { item, currentCurrency, setCurrentItem } = this.props;
+        const { id, brand, name, gallery } = item;
+
         return (
             <div className="out-hover">
-                <div className='item-component-out'>
+                <div className="item-component-out">
                     <Link to={`${URLS.SINGLE_ITEM_PAGE}${id}`} className="link-image">
-                        <button className="load-current-button" onClick={() => this.props.setCurrentItem(item)}>
-                            <img src={gallery[0]} className="showcase" alt='out of stock item' />
+                        <button className="load-current-button" onClick={() => setCurrentItem(item)}>
+                            <img src={gallery[0]} className="showcase" alt={`out of stock" ${name}`} />
                             <p className="out-of-stock">OUT OF STOCK</p>
                         </button>
                     </Link>
@@ -36,7 +29,7 @@ class ItemOutOfStock extends React.Component {
                             </div>
                             {
                                 (
-                                    <p className="price-item">{compareTo(item, this.props.currentCurrency)}</p>
+                                    <p className="price-item">{compareTo(item, currentCurrency)}</p>
                                 )
                             }
                         </div>
@@ -46,6 +39,15 @@ class ItemOutOfStock extends React.Component {
             </div>
         );
     }
+}
+
+ItemOutOfStock.propTypes = {
+    item: PropTypes.object,
+    id: PropTypes.string,
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    gallery: PropTypes.array,
+    setCurrentItem: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {

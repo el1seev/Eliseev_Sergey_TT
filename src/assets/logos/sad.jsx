@@ -2,6 +2,7 @@ import React from "react";
 
 export class EmptySad extends React.Component {
 	render() {
+		
 		return (
 			<>
 				<svg version="1.1" id="Layer_1" height='50px' width='50px' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

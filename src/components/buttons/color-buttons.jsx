@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 import { setSelectedAttribute } from "../../redux/actions/productsActions";
+import PropTypes from "prop-types";
 
 class ColorButtons extends React.Component {
     constructor(props) {
@@ -14,18 +15,12 @@ class ColorButtons extends React.Component {
     setActive = (name, value) => {
         this.setState({ active: value });
         this.props.setSelectedAttribute({ name: name, value: value });
-        this.props.setActiveValue(value);
     };
 
     render() {
-        const { property } = this.props;
-        const props = {
-            property: {
-                name: property.name,
-                selected: property.selected,
-            }
-        }
-        let { property: { name, selected } } = props;
+        const { property, cartButtons } = this.props;
+        const { name, selected, items } = property;
+        
         return (
             <>
                 {
@@ -34,7 +29,7 @@ class ColorButtons extends React.Component {
                             <p className="text">{name}:</p>
                             <div className="wrap-of-color-buttons">
                                 {
-                                    (property.items.map((element) => (
+                                    (items.map((element) => (
                                         selected !== undefined && selected === element.value
                                             ?
                                             <div className="color-div-active">
@@ -42,7 +37,7 @@ class ColorButtons extends React.Component {
                                                 style={{ backgroundColor: element.value }} />
                                             </div>
                                             :
-                                            this.props.cartButtons ?
+                                            cartButtons ?
                                                 <div className="color-div">
                                                     <button className="color-button" style={{ backgroundColor: element.value }} />
                                                 </div>
@@ -61,6 +56,14 @@ class ColorButtons extends React.Component {
             </>
         )
     }
+}
+
+ColorButtons.propTypes = {
+    property: PropTypes.object,
+    name: PropTypes.string,
+    selected: PropTypes.string,
+    items: PropTypes.array,
+    setSelectedAttribute: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {

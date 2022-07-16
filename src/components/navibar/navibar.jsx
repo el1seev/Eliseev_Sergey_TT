@@ -6,54 +6,26 @@ import CartLogo from "../../assets/logos/cartLogo";
 import "./navibar.css";
 import { setCurrentCurrency } from "../../redux/actions/other-actions";
 import Arrow from "../../assets/logos/currencyArrow";
-
+import PropTypes from "prop-types";
 
 class NaviBar extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            totalQty: 0,
-        };
-        this.setTotalQty = this.setTotalQty.bind(this);
-    }
-
-    setTotalQty = (qty) => {
-        this.setState({ totalQty: qty });
-    }
-
-    componentDidMount() {
-        let items = 0;
-        this.setTotalQty(items);
-    }
-
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.cartItems !== this.props.cartItems) {
-            let items = 0;
-
-            if (this.props.cartItems !== undefined) {
-                this.props.cartItems.forEach((item) => {
-                    items += item.qty;
-                })
-                this.setTotalQty(items);
-            }
-        }
-
-    }
-
     render() {
+        const { categories, setCurrencyModal, showCurrencyModal, setShowModal,
+            showModal, cartInfo, currentCurrency } = this.props;
+        const { qty } = cartInfo;
         const activeLink = {
             color: "rgb(64, 169, 48)",
             borderBottom: "2px solid rgb(64, 169, 48)",
         }
+
         return (
             <nav className="navigation" ref={this.navigationWidth} >
                 <ul className="navMenu">
                     {
-                        this.props.categories.map((link) => (
+                        categories.map((link) => (
                             <li>
                                 <NavLink to={`/${link.name}`} className="link"
-                                style={({ isActive }) => { if (isActive) { return activeLink } }}>
+                                    style={({ isActive }) => { if (isActive) { return activeLink } }}>
                                     {link.name}
                                 </NavLink>
                             </li>
@@ -70,17 +42,17 @@ class NaviBar extends React.Component {
                     <div className="currency-switcher">
                         <div className="currency-icon">
                             <button className="currency-button"
-                                onClick={() => this.props.setCurrencyModal(!this.props.showCurrencyModal)}>
-                                {this.props.currentCurrency}
+                                onClick={() => setCurrencyModal(!showCurrencyModal)}>
+                                {currentCurrency}
                             </button>
-                            <Arrow rotate={this.props.showCurrencyModal} />
+                            <Arrow rotate={showCurrencyModal} />
                         </div>
                     </div>
 
-                    <button className="cart-modal-button" onClick={() => this.props.setShowModal(!this.props.showModal)}>
+                    <button className="cart-modal-button" onClick={() => setShowModal(!showModal)}>
                         <CartLogo />
-                        <div className="counter-logo" style={!!this.state.totalQty ? {} : { visibility: 'hidden' }}>
-                            <p className="counter-logo-value">{this.state.totalQty}</p>
+                        <div className="counter-logo" style={!!qty ? {} : { visibility: "hidden" }}>
+                            <p className="counter-logo-value">{qty}</p>
                         </div>
                     </button>
 
@@ -90,11 +62,23 @@ class NaviBar extends React.Component {
     }
 }
 
+NaviBar.propTypes = {
+    categories: PropTypes.array,
+    currentCurrency: PropTypes.string,
+    cartInfo: PropTypes.object,
+    cartItems: PropTypes.array,
+    setCurrentCurrency: PropTypes.func,
+    setCurrencyModal: PropTypes.func,
+    showCurrencyModal: PropTypes.bool,
+    setShowModal: PropTypes.func,
+    showModal: PropTypes.bool,
+}
+
 const mapStateToProps = (state) => {
     return {
         categories: state.otherData.categories,
-        currencies: state.otherData.currencies,
         currentCurrency: state.otherData.currentCurrency,
+        cartInfo: state.otherData.cartInfo,
         cartItems: state.products.cartItems,
     }
 }

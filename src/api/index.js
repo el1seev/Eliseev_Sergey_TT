@@ -138,9 +138,10 @@ export const getCartItemsInfo = (cartItems, currentCurrency) => {
         })
     }
     let fixPrice = price.toFixed(2);
-    tax = fixPrice * TAX.VALUE;
+    tax = Number(fixPrice * TAX.VALUE);
     let fixTax = tax.toFixed(2);
 
-    let result = { price: fixPrice, tax: fixTax, qty: items };
+
+    let result = { price: Number(fixPrice), tax: Number(fixTax), qty: Number(items) };
     return result;
 }

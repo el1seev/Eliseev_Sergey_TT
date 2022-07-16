@@ -6,8 +6,7 @@ import TextButtons from "../buttons/text-buttons";
 import ColorButtons from "../buttons/color-buttons";
 import Next from "../../assets/img/next.png";
 import Prev from "../../assets/img/prev.png";
-
-
+import PropTypes from "prop-types";
 import "./cart-item.css";
 import { connect } from "react-redux";
 import { decreaseItemQty, increaseItemQty, removeFromCart } from "../../redux/actions/productsActions";
@@ -54,29 +53,22 @@ class CartItem extends React.Component {
     }
 
     render() {
-        const { item } = this.props;
-        const props = {
-            item: {
-                brand: item.brand,
-                name: item.name,
-                gallery: item.gallery,
-                attributes: item.attributes,
-                qty: item.qty,
-            }
-        }
-        let { item: { brand, name, gallery, attributes, qty} } = props;
+        const { item, currentCurrency, increase, decrease, remove } = this.props;
+        const { brand, name, gallery, attributes, qty} = item;
+        const { currentImg } = this.state;
+        
         return (
             <div className="cart-item-component">
                 <div className="cart-item-info">
                     <h1 className="brand">{brand}</h1>
                     <h2 className="name">{name}</h2>
 
-                    <p className="price">{compareTo(item, this.props.currentCurrency)}</p>
+                    <p className="price">{compareTo(item, currentCurrency)}</p>
                     {
                         (attributes.map(property => (
                             property.length !== 0 ?
                                 (
-                                    property.type === 'text' ?
+                                    property.type === "text" ?
                                         <TextButtons property={property} cartButtons={true} />
                                         :
                                         <ColorButtons property={property} cartButtons={true} />
@@ -90,23 +82,23 @@ class CartItem extends React.Component {
                 <div className="counter-showcase-wrap">
                     <div className="counter-buttons">
                         <button className="crease">
-                            <img className="count-button" src={Increase} onClick={() => this.props.increase(item)} />
+                            <img className="count-button" src={Increase} onClick={() => increase(item)} />
                         </button>
                         <p className="count">{qty}</p>
                         {
                             qty >= 2 ?
                                 <button className="crease">
-                                    <img className="count-button" src={Decrease} onClick={() => this.props.decrease(item)} />
+                                    <img className="count-button" src={Decrease} onClick={() => decrease(item)} />
                                 </button>
                                 :
                                 <button className="crease">
-                                    <img className="count-button" src={Decrease} onClick={() => this.props.remove(item)} />
+                                    <img className="count-button" src={Decrease} onClick={() => remove(item)} />
                                 </button>
                         }
                     </div>
 
                     <div className="cart-item-gallery">
-                        <img src={this.state.currentImg} className="cart-item-showcase" />
+                        <img src={currentImg} className="cart-item-showcase" />
                         {
                             gallery.length !== 1 ?
                                 <div className="wrap-of-gallery-buttons">
@@ -125,6 +117,17 @@ class CartItem extends React.Component {
             </div>
         );
     }
+}
+
+CartItem.propTypes = {
+    item: PropTypes.object,
+    name: PropTypes.string,
+    brand: PropTypes.string,
+    qty: PropTypes.number,
+    attributes: PropTypes.array,
+    increase: PropTypes.func,
+    decrease: PropTypes.func,
+    remove: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {

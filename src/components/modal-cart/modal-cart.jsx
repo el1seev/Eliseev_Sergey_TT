@@ -6,23 +6,27 @@ import "./modal-cart.css";
 import ModalItem from "../modal-item/modal-item";
 import { URLS } from "../../api/constans";
 import { clearCart } from "../../redux/actions/productsActions";
+import PropTypes from "prop-types";
 
 class ModalCart extends React.Component {
     constructor(props) {
         super(props);
         this.setShowPurchaseModal = this.setShowPurchaseModal.bind(this);
-    }
+    } 
     setShowPurchaseModal = () => {
         this.props.setShowModal(false);
         this.props.setPurchaseModal(true);
         this.props.clearCart();
     }
     render() {
+        const {showModal, setShowModal, cartItems, cartInfo, currentCurrency } = this.props;
+        const { qty, price } = cartInfo;
+        
         return (
             <>
-                <div className={this.props.showModal ? "modal" : "modal-hidden"} onClick={() => this.props.setShowModal(false)}>
+                <div className={showModal ? "modal" : "modal-hidden"} onClick={() => setShowModal(false)}>
                     {
-                        this.props.cartItems.length === 0 ?
+                        cartItems.length === 0 ?
                             <div className="modal-emty-cart" onClick={(e) => e.stopPropagation()}>
                                 <EmptySad />
                                 <p className="empty-text">Cart is empty!</p>
@@ -31,21 +35,21 @@ class ModalCart extends React.Component {
                             <div className="modal-cart" onClick={(e) => e.stopPropagation()}>
                                 <div className="my-bag-header-wrap">
                                     <p className="p-my-bag">My bag,</p>
-                                    <p className="p-modal-qty">{this.props.cartInfo.qty} items</p>
+                                    <p className="p-modal-qty">{qty} items</p>
                                 </div>
 
-                                {this.props.cartItems.map((cartItem => (
+                                {cartItems.map((cartItem => (
                                     <ModalItem cartItem={cartItem} />
                                 )))}
 
                                 <div className="modal-wrap-of-price">
                                     <p className="p-total">Total: </p>
-                                    <p className="total-price">{this.props.currentCurrency}{this.props.cartInfo.price}</p>
+                                    <p className="total-price">{currentCurrency}{price}</p>
                                 </div>
 
                                 <div className="modal-bottom-buttons-wrap">
                                     <Link className="link-to-cart" to={`${URLS.CART_PAGE}`}>
-                                        <button className="view-bag-button" onClick={() => this.props.setShowModal(false)}>
+                                        <button className="view-bag-button" onClick={() => setShowModal(false)}>
                                             <p className="view-bag-text">VIEW BAG</p>
                                         </button>
                                     </Link>
@@ -57,6 +61,16 @@ class ModalCart extends React.Component {
             </>
         )
     }
+}
+
+ModalCart.propTypes = {
+    showModal: PropTypes.bool,
+    cartItems: PropTypes.array,
+    cartInfo: PropTypes.object,
+    qty: PropTypes.number,
+    price: PropTypes.number,
+    setShowModal: PropTypes.func,
+    setPurchaseModal: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {

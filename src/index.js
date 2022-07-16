@@ -7,10 +7,10 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import App from "./App";
 
-import './index.css';
+import "./index.css";
 
 export const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: "http://localhost:4000",
   cache: new InMemoryCache(),
 })
 

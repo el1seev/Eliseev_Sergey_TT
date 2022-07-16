@@ -1,11 +1,11 @@
-import { connect } from "react-redux";
 import React from "react";
+import { connect } from "react-redux";
 import "../home/page.css";
-
 import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
 import { filterCategory } from "../../api";
 import { FILTER_PARAMS } from "../../api/constans";
+import PropTypes from "prop-types";
 
 
 class Tech extends React.Component {
@@ -31,15 +31,18 @@ class Tech extends React.Component {
     }
 
     render() {
+        const { tech, categories } = this.props;
+        const { loading } = this.state;
+        
         return (
-            <div className='page-content'>
-                <h1 className='page-name'>{filterCategory(this.props.categories, FILTER_PARAMS.TECH)}</h1>
-                <div className='gallery'>
+            <div className="page-content">
+                <h1 className="page-name">{filterCategory(categories, FILTER_PARAMS.TECH)}</h1>
+                <div className="gallery">
                     {
-                        this.state.loading ?
+                        loading ?
                             <p>Loading...</p>
                             :
-                            (this.props.tech.map((item) => (
+                            (tech.map((item) => (
                                 item.inStock ?
                                     <ItemInStock key={item.id} item={item} />
                                     :
@@ -50,6 +53,12 @@ class Tech extends React.Component {
             </div>
         )
     }
+}
+
+Tech.propTypes = {
+    tech: PropTypes.array,
+    categories: PropTypes.array,
+    loading: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => {

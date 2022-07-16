@@ -1,19 +1,20 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { URLS } from '../../api/constans';
 import "./purchase-modal.css";
+import PropTypes from "prop-types";
 
 class PurchaseModal extends React.Component {
-
     render() {
+        const { showPurchaseModal, setPurchaseModal } = this.props;
+        
         return (
-            <div className={this.props.showPurchaseModal ? "purchase-modal" : "purchase-modal-hidden"}
-            onClick={() => this.props.setPurchaseModal(false)}>
+            <div className={showPurchaseModal ? "purchase-modal" : "purchase-modal-hidden"}
+                onClick={() => setPurchaseModal(false)}>
                 <div className="purchase-content" onClick={(e) => e.stopPropagation()}>
                     <p>Thanks for buying!</p>
-                    <button className='link-button' onClick={() => this.props.setPurchaseModal(false)}>
-                        <Link to={`${URLS.ALL_PAGE}`} className='shopping-link' >Shopping ahead</Link>
+                    <button className="link-button" onClick={() => setPurchaseModal(false)}>
+                        <Link to={`${URLS.ALL_PAGE}`} className="shopping-link" >Shopping ahead</Link>
                     </button>
                 </div>
             </div>
@@ -21,10 +22,9 @@ class PurchaseModal extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        currentCurrency: state.otherData.currentCurrency,
-    }
+PurchaseModal.propTypes = {
+    showPurchaseModal: PropTypes.bool,
+    setPurchaseModal: PropTypes.func,
 }
 
-export default connect(mapStateToProps)(PurchaseModal); 
+export default PurchaseModal; 

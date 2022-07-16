@@ -4,8 +4,12 @@ import { SET_CART_INFO, SET_CATEGORIES, SET_CURRENCIES, SET_CURRENT_CURRENCY, SE
 const initialState = {
     categories: [],
     currencies: [],
-    currentCurrency: '$',
-    cartInfo: undefined,
+    currentCurrency: "$",
+    cartInfo: {
+        qty: null,
+        price: null,
+        tax: null
+    },
     loading: true,
 }
 

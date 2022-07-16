@@ -6,6 +6,7 @@ import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
 import { filterCategory } from "../../api";
 import { FILTER_PARAMS } from "../../api/constans";
+import PropTypes from "prop-types";
 
 class Clothes extends React.Component {
     constructor(props) {
@@ -31,15 +32,18 @@ class Clothes extends React.Component {
     }
 
     render() {
+        const { clothes, categories } = this.props;
+        const { loading } = this.state;
+
         return (
-            <div className='page-content'>
-                <h1 className='page-name'>{filterCategory(this.props.categories, FILTER_PARAMS.CLOTHES)}</h1>
-                <div className='gallery'>
+            <div className="page-content">
+                <h1 className="page-name">{filterCategory(categories, FILTER_PARAMS.CLOTHES)}</h1>
+                <div className="gallery">
                     {
-                        this.state.loading ?
+                        loading ?
                             <p>Loading...</p>
                             :
-                            (this.props.clothes.map((item) => (
+                            (clothes.map((item) => (
                                 item.inStock ?
                                     <ItemInStock key={item.id} item={item} />
                                     :
@@ -50,6 +54,12 @@ class Clothes extends React.Component {
             </div>
         )
     }
+}
+
+Clothes.propTypes = {
+    clothes: PropTypes.array,
+    categories: PropTypes.array,
+    loading: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => {

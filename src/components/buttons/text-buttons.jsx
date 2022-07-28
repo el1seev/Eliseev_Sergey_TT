@@ -15,6 +15,7 @@ class TextButtons extends React.Component {
     setActive = (name, value) => {
         this.setState({ active: value });
         this.props.setSelectedAttribute({ name: name, value: value });
+        this.props.setActiveValue({ active: value});
     };
 
 

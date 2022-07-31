@@ -303,3 +303,22 @@
 {
     opacity: 1;
 }
+
+.out-of-stock
+{
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    align-items: center;
+}
+
+.out-of-stock-text
+{
+    position: absolute;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 38px;
+    line-height: 160%;
+    color: #7b7b7b;
+}

@@ -48,11 +48,6 @@ class SingleItem extends React.PureComponent {
     componentDidMount() {
         this.setDescriptionHeight(this.descriptionHeight.current.offsetHeight);
         this.setMainView(this.props.currentItem.gallery[0]);
-        if (this.props.currentItem.attributes === undefined) {
-            this.setCurrentAttLength(undefined);
-        } else {
-            this.setCurrentAttLength(0);
-        }
     }
 
     componentDidUpdate(prevState) {
@@ -79,7 +74,15 @@ class SingleItem extends React.PureComponent {
                     }
                 </div>
 
-                <img src={images} className="single-item-showcase" alt={name} />
+                {
+                    inStock ? 
+                    <img src={images} className="single-item-showcase" alt={name} />
+                    :
+                    <div className="out-of-stock">
+                        <img src={images} className="single-item-showcase" alt={name} style={{opacity: 0.5}}/>
+                        <p className="out-of-stock-text">OUT OF STOCK</p>
+                    </div>
+                }
 
                 <div className="single-item-info">
                     <h1 className="brand">{brand}</h1>
@@ -142,7 +145,7 @@ class SingleItem extends React.PureComponent {
         );
     }
 }
-//        let { brand, name, gallery, inStock, description, attributes } = currentItem;
+
 SingleItem.propTypes = {
     currentItem: PropTypes.object,
     brand: PropTypes.string,

@@ -3,7 +3,8 @@ import React from "react";
 import {
   Routes,
   Route,
-  Navigate
+  Navigate,
+  HashRouter
 } from "react-router-dom";
 
 import ErrorPage from "./pages/error/error";
@@ -64,6 +65,7 @@ class App extends React.Component {
   render() {
     const { currentItem } = this.props;
     const { showModal, showCurrencyModal, showPurchaseModal } = this.state;
+      
 
     return (
       <div className={showModal || showPurchaseModal ? "App-modal-true" : "App-modal-false"}>
@@ -78,11 +80,11 @@ class App extends React.Component {
           <main>
             <Routes>
               <Route path={`${URLS.HOME_PAGE}`} element={<Home />} />
-              <Route path={`${URLS.ALL_PAGE}`} element={<Home />} />
+              <Route path={`/:name`} element={<Home />} />
               <Route path={`${URLS.CLOTHES_PAGE}`} element={<Clothes />} />
               <Route path={`${URLS.TECH_PAGE}`} element={<Tech />} />
               <Route path={`${URLS.CART_PAGE}`} element={<Cart setPurchaseModal={this.setPurchaseModal} />} />
-              <Route path={`${URLS.SINGLE_ITEM_PAGE}:id`}
+              <Route path={`/item/:id`}
                 element={currentItem !== null ?
                   <SingleItem />
                   :

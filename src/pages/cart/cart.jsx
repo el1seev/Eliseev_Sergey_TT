@@ -37,7 +37,7 @@ class Cart extends React.Component {
                             <div className="wrap-of-cart-info">
                                 <div className="cart-p-figure">
                                     <p className="cart-p">Tax 21%: </p>
-                                    <p className="cart-figure"> {currentCurrency}{tax}</p>
+                                    <p className="cart-figure"> {currentCurrency}{tax.toFixed(2)}</p>
                                 </div>
                                 <div className="cart-p-figure">
                                     <p className="cart-p">Quantity: </p>
@@ -45,7 +45,7 @@ class Cart extends React.Component {
                                 </div>
                                 <div className="cart-p-figure">
                                     <p className="cart-p">Total: </p>
-                                    <p className="cart-figure"> {currentCurrency}{price}</p>
+                                    <p className="cart-figure"> {currentCurrency}{price.toFixed(2)}</p>
                                 </div>
                                 <button className="order-button" onClick={() => this.setShowPurchaseModal()}>ORDER</button>
                             </div>

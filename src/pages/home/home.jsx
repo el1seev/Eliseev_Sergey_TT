@@ -3,10 +3,8 @@ import { connect } from "react-redux";
 import "./page.css";
 import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
-import { filterCategory } from "../../api";
-import { FILTER_PARAMS } from "../../api/constans";
+import { withParams } from "../../api/HOC";
 import PropTypes from "prop-types";
-
 
 class Home extends React.Component {
     constructor(props) {
@@ -18,7 +16,11 @@ class Home extends React.Component {
     }
 
     setLoading = (value) => {
-        this.setState({ loading: value })
+        this.setState({ loading: value });
+    }
+
+    setName = (param) => {
+        this.setState({ name: param });
     }
 
     componentDidMount() {
@@ -27,7 +29,8 @@ class Home extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.loading !== this.props.loading)
-            this.setLoading(this.props.loading);
+        this.setLoading(this.props.loading);
+        console.log(this.props);
     }
 
     render() {
@@ -36,7 +39,7 @@ class Home extends React.Component {
 
         return (
             <div className="page-content">
-                <h1 className="page-name">{filterCategory(categories, FILTER_PARAMS.ALL)}</h1>
+                <h1 className="page-name"></h1>
                 <div className="gallery">
                     {
                         loading ?
@@ -70,5 +73,4 @@ const mapStateToProps = (state) => {
 }
 
 
-
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(withParams(Home));

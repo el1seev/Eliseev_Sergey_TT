@@ -44,7 +44,7 @@ class ModalCart extends React.Component {
 
                                 <div className="modal-wrap-of-price">
                                     <p className="p-total">Total: </p>
-                                    <p className="total-price">{currentCurrency}{price}</p>
+                                    <p className="total-price">{currentCurrency}{price.toFixed(2)}</p>
                                 </div>
 
                                 <div className="modal-bottom-buttons-wrap">

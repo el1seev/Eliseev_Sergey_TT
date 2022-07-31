@@ -15,10 +15,10 @@ class ItemOutOfStock extends React.Component {
         return (
             <div className="out-hover">
                 <div className="item-component-out">
-                    <Link to={`${URLS.SINGLE_ITEM_PAGE}${id}`} className="link-image">
+                    <Link to={`/item/${id}`} className="link-image">
                         <button className="load-current-button" onClick={() => setCurrentItem(item)}>
                             <img src={gallery[0]} className="showcase" alt={`out of stock" ${name}`} />
-                            <p className="out-of-stock">OUT OF STOCK</p>
+                            <p className="out-of-stock-text">OUT OF STOCK</p>
                         </button>
                     </Link>
 
@@ -33,7 +33,6 @@ class ItemOutOfStock extends React.Component {
                                 )
                             }
                         </div>
-
                     </div>
                 </div>
             </div>

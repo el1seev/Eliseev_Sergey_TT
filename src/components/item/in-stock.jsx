@@ -15,7 +15,7 @@ class ItemInStock extends React.Component {
 
         return (
             <div className="item-component">
-                <Link to={`${URLS.SINGLE_ITEM_PAGE}${id}`} className="link-image">
+                <Link to={`/item/${id}`} className="link-image">
                     <button className="load-current-button" onClick={() => setCurrentItem(item)}>
                         <img src={gallery[0]} className="showcase" alt={`in stock" ${name}`} />
                     </button>

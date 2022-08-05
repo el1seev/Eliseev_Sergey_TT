@@ -9,6 +9,8 @@
 
 .h1-cart
 {
+    font-family: 'Raleway';
+    font-style: normal;
     font-weight: 700;
     font-size: 32px;
     line-height: 40px;
@@ -22,7 +24,7 @@
     margin: 60px;
 }
 
-.cart-p
+.cart-text
 {
     font-family: 'Raleway';
     font-style: normal;
@@ -42,9 +44,10 @@
     line-height: 24px;
     margin: 5px 0px 5px 5px;
     text-align: right;
+    font-variant: lining-nums;
 }
 
-.cart-p-figure
+.cart-wrap-text-figure
 {
     display: flex;
     align-items: center;
@@ -56,7 +59,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
 }
 
 .empty-cart-p
@@ -67,6 +69,10 @@
     font-size: 32px;
     line-height: 40px;
     margin: 0px 0px 0px 25px;
+}
+
+.cart .color-div:hover{
+    border: 1.5px solid #ffffff;
 }
 
 .link-button
@@ -122,7 +128,7 @@
     background: #5ECE7B;
     color: #fff;
     font-weight: 600;
-    font-text: 16px;
+    font-size: 16px;
     line-height: 120%;
     cursor: pointer;
     transition: 0.5s;

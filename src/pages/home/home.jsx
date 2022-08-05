@@ -1,76 +1,105 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./page.css";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+
 import ItemInStock from "../../components/item/in-stock";
 import ItemOutOfStock from "../../components/item/out-of-stock";
-import { withParams } from "../../api/HOC";
-import PropTypes from "prop-types";
+import { getCurrentCategoryProducts } from "../../redux/actions/products-actions";
+import ErrorPage from "../error/error";
+import "./page.css";
+
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: true,
-        }
-        this.setLoading = this.setLoading.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      products: null,
+    };
+    this.setProducts = this.setProducts.bind(this);
+    this.setLoading = this.setLoading.bind(this);
+  }
+
+  setLoading = (value) => {
+    this.setState({ loading: value });
+  };
+
+  setProducts = (response) => {
+    this.setState({ products: response});
+  };
+
+  componentDidMount(){
+    if( this.props.match.params.name !== undefined){
+      this.props.getCurrentCategoryProducts(this.props.match.params.name);
+    } else {
+      this.props.getCurrentCategoryProducts("all");
     }
+  }
 
-    setLoading = (value) => {
-        this.setState({ loading: value });
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.name !== this.props.match.params.name){
+      if( this.props.match.params.name !== undefined ){
+        this.props.getCurrentCategoryProducts(this.props.match.params.name);
+      } else {
+        this.props.getCurrentCategoryProducts("all");
+      }
     }
+  }
 
-    setName = (param) => {
-        this.setState({ name: param });
-    }
+  render() {
+    
+    const { currentCategoryProducts, categoryLoader, match} = this.props;
+    const { params } = match;
+    const { name } = params;
 
-    componentDidMount() {
-        this.setLoading(this.props.loading);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.loading !== this.props.loading)
-        this.setLoading(this.props.loading);
-        console.log(this.props);
-    }
-
-    render() {
-        const { all, categories } = this.props;
-        const { loading } = this.state;
-
-        return (
-            <div className="page-content">
-                <h1 className="page-name"></h1>
+    return (
+      <>
+        {
+          categoryLoader !== false ?
+            <p>Loading...</p>
+            :
+            currentCategoryProducts.error !== true ?
+              <div className="page-content">
+                <h1 className="page-name">{name !== undefined ? name : "all"} </h1>
                 <div className="gallery">
-                    {
-                        loading ?
-                            <p>Loading...</p>
-                            :
-                            (all.map((item) => (
-                                item.inStock ?
-                                    <ItemInStock key={item.id} item={item} />
-                                    :
-                                    <ItemOutOfStock key={item.id} item={item} />
-                            )))
-                    }
+                  {
+                    (currentCategoryProducts.map((item) => (
+                      item.inStock ?
+                        <ItemInStock key={item.id} item={item} />
+                        :
+                        <ItemOutOfStock key={item.id} item={item} />
+                    )))
+                  }
                 </div>
-            </div>
-        )
-    }
+              </div>
+              :
+              <ErrorPage descriptionError={currentCategoryProducts.descriptionError}/>
+        }
+      </>
+    );
+  }
 }
 
 Home.propTypes = {
-    all: PropTypes.array,
-    categories: PropTypes.array,
-    loading: PropTypes.bool,
-}
+  match: PropTypes.object,
+  currentCategoryProducts: PropTypes.array || PropTypes.string,
+  categoryLoader: PropTypes.bool,
+  getCurrentCategoryProducts: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
-    return {
-        all: state.products.all,
-        categories: state.otherData.categories,
-        loading: state.otherData.loading,
-    }
-}
+  return {
+    currentCategoryProducts: state.products.currentCategoryProducts,
+    categoryLoader: state.loadersInfo.categoryLoader,
+    categories: state.otherData.categories,
+  };
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCurrentCategoryProducts: (categoryName) => dispatch(getCurrentCategoryProducts(categoryName)),
+  };
+};
 
-export default connect(mapStateToProps)(withParams(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

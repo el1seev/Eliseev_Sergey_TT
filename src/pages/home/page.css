@@ -22,4 +22,9 @@
     text-transform: uppercase;
     margin-top: 0px;
     padding-top: 50px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 160%;
 }

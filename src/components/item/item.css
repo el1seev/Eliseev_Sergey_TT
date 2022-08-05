@@ -44,7 +44,7 @@
     opacity: 1;
 }
 
-.load-current-button
+.image-wrap
 {
     border: none;
     height: fit-content;
@@ -129,23 +129,24 @@
 
 .price-item
 {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 500;
+    font-family: Raleway;
     font-size: 18px;
-    line-height: 160%;
+    font-weight: bold;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: right;    
     width: fit-content;
     height: 29px;
-
     color: #1D1F22;
     margin: 0px;
 }
 
 .brand-name-item
 {
+    font-family: 'Raleway';
     font-style: normal;
     font-weight: 300;
-    font-size: 23px;
+    font-size: 18px;
     line-height: 160%;
     color: #1D1F22;
     margin-right: 10px;

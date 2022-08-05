@@ -32,22 +32,16 @@
 .navMenu .link
 {
     display: inline;
-    font-family: 'Raleway, sans-serif';
+    font-family: 'Raleway';
     font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: 400;
+    font-size: 16px;
     line-height: 120%;
     text-decoration: none;
     color: rgb(37, 37, 37);
     text-transform: uppercase;
     margin-right: 30px;
     margin-left: 0px;
-}
-
-.select
-{
-    font-size: 20px;
-    color: rgb(37, 37, 37);
 }
 
 .wrapOfCartAndCurrency
@@ -120,7 +114,7 @@
     background-color: #fff;
     font-family: 'Raleway';
     font-style: normal;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 18px;
     line-height: 160%;
     cursor: pointer;

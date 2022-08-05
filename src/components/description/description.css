@@ -1,0 +1,49 @@
+.description
+{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.description-data-more, .description-data-less
+{
+    margin-top: 20px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    width: 292px;
+}
+
+.description-data-more
+{
+    height: 80px;
+    overflow: hidden;
+}
+
+.description-data-less
+{
+    height: fit-content;
+}
+
+.show-more-button
+{
+    border: none;
+    color: #343537;
+    transition: 1s;
+    font-family: 'Raleway, sans-serif';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.show-more-button:hover
+{
+    opacity: 1;
+}

@@ -1,174 +1,165 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createMarkup, compareTo, lengthOfShipped } from "../../api";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+
+import Description from "../../components/description/description";
+import { compareTo, lengthOfShipped } from "../../api";
 import TextButtons from "../../components/buttons/text-buttons";
 import ColorButtons from "../../components/buttons/color-buttons";
+import { getCurrentItem, pushToCart } from "../../redux/actions/products-actions";
 import "./single-item.css";
-import { pushToCart } from "../../redux/actions/productsActions";
-import PropTypes from "prop-types";
+import ErrorPage from "../error/error";
+
+
 
 
 class SingleItem extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.descriptionHeight = React.createRef();
-        this.state = {
-            images: null,
-            currentAttLength: null,
-            activeValue: null,
-            descriptionHeight: 0,
-            fullDescription: false,
-        }
-        this.setMainView = this.setMainView.bind(this);
-        this.setCurrentAttLength = this.setCurrentAttLength.bind(this);
-        this.setDescriptionHeight = this.setDescriptionHeight.bind(this);
-        this.setFullDescription = this.setFullDescription.bind(this);
+  constructor(props) {
+    super(props);
+    this.descriptionHeight = React.createRef();
+    this.state = {
+      mainImage: null,
+      currentAttLength: null,
+      activeValue: null,
+    };
+    this.setMainView = this.setMainView.bind(this);
+    this.setCurrentAttLength = this.setCurrentAttLength.bind(this);
+  }
+
+  setMainView = (img) => {
+    this.setState({ mainImage: img });
+  };
+
+  setCurrentAttLength = (length) => {
+    this.setState({ currentAttLength: length });
+  };
+
+  setActiveValue = (value) => {
+    this.setState({ activeValue: value });
+  };
+
+  componentDidMount(){
+    this.props.getCurrentItem(this.props.match.params.id);
+  }
+  
+  componentDidUpdate(prevState, prevProps) {
+    if(this.props.currentItem.error !== true && prevState.activeValue !== this.state.activeValue){
+      this.setCurrentAttLength(lengthOfShipped(this.props.currentItem));
     }
-
-    setMainView = (img) => {
-        this.setState({ images: img });
-    };
-
-    setCurrentAttLength = (length) => {
-        this.setState({ currentAttLength: length });
-    };
-
-    setActiveValue = (value) => {
-        this.setState({ activeValue: value });
-    };
-
-    setDescriptionHeight = (value) => {
-        this.setState({ descriptionHeight: value });
-    };
-
-    setFullDescription = (value) => {
-        this.setState({ fullDescription: value });
-    };
-
-    componentDidMount() {
-        this.setDescriptionHeight(this.descriptionHeight.current.offsetHeight);
-        this.setMainView(this.props.currentItem.gallery[0]);
+    if(this.props.currentItem.error !== true && prevProps.currentItem !== this.props.currentItem){
+      this.setMainView(this.props.currentItem.gallery[0]);
     }
+  }
 
-    componentDidUpdate(prevState) {
-        if (prevState.activeValue !== this.state.activeValue) {
-            this.setCurrentAttLength(lengthOfShipped(this.props.currentItem));
-        }
-    }
 
-    render() {
-        const { currentItem, pushToCart, currentCurrency } = this.props;
-        let { brand, name, gallery, inStock, description, attributes } = currentItem;
-        const { images, currentAttLength, descriptionHeight, fullDescription } = this.state;
+  render() {
+    const { currentItem, pushToCart, currentCurrency, currentItemLoader } = this.props;
+    const { mainImage, currentAttLength } = this.state;
 
-        return (
-            <div className="single-item-component">
-
+    return (
+      <>
+        {
+          currentItemLoader !== false ? 
+            <p>Loading...</p>
+            :
+            currentItem.error !== true ?
+              <div className="single-item-component">
                 <div className="wrap-of-small-img">
-                    {
-                        (gallery.map((images) => (
-                            <button className="switch-image" onClick={() => this.setMainView(images)}>
-                                <img src={images} className="small-single-item-showcase" alt={name} />
-                            </button>
-                        )))
-                    }
+                  {
+                    (currentItem.gallery.map((images) => (
+                      <button className="switch-image" onClick={() => this.setMainView(images)}>
+                        <img src={images} className="small-single-item-showcase" alt={currentItem.name} />
+                      </button>
+                    )))
+                  }
                 </div>
 
                 {
-                    inStock ? 
-                    <img src={images} className="single-item-showcase" alt={name} />
+                  currentItem.inStock ? 
+                    <img src={mainImage}
+                      className="single-item-showcase" alt={currentItem.name} />
                     :
                     <div className="out-of-stock">
-                        <img src={images} className="single-item-showcase" alt={name} style={{opacity: 0.5}}/>
-                        <p className="out-of-stock-text">OUT OF STOCK</p>
+                      <img src={mainImage} className="single-item-showcase"
+                        alt={currentItem.name} style={{opacity: 0.5}}/>
+                      <p className="out-of-stock-text">OUT OF STOCK</p>
                     </div>
                 }
 
                 <div className="single-item-info">
-                    <h1 className="brand">{brand}</h1>
-                    <h2 className="name">{name}</h2>
-                    {
-                        inStock ?
-                            null
-                            :
-                            <p className="out-of-stock-alert">OUT OF STOCK</p>
-                    }
+                  <h1 className="brand">{currentItem.brand}</h1>
+                  <h2 className="name">{currentItem.name}</h2>
+                  {
+                    currentItem.inStock ?
+                      null
+                      :
+                      <p className="out-of-stock-alert">OUT OF STOCK</p>
+                  }
 
-                    {
-                        (attributes.map(property => (
-                            property.length !== 0 ?
-                                (
-                                    property.type === "text" ?
-                                        <TextButtons property={property} setActiveValue={this.setActiveValue} />
-                                        :
-                                        <ColorButtons property={property} setActiveValue={this.setActiveValue} />
-                                )
-                                :
-                                <></>
-                        )))
-                    }
-
-                    <div className="wrap-of-price">
-                        <p className="p-price">PRICE:</p>
-                        {
-                            (
-                                <p className="price">{compareTo(currentItem, currentCurrency)}</p>
-                            )
-                        }
-                    </div>
-                    {
-                        inStock && attributes.length === currentAttLength ?
-                            <button className="add-from-single" 
-                            onClick={() => pushToCart(currentItem)}>ADD TO CART</button>
+                  {
+                    (currentItem.attributes.map(property => (
+                      property.length !== 0 ?
+                        (
+                          property.type === "text" ?
+                            <TextButtons property={property} setActiveValue={this.setActiveValue} />
                             :
-                            <button className="add-from-single-blocked">ADD TO CART</button>
+                            <ColorButtons property={property} setActiveValue={this.setActiveValue} />
+                        )
+                        :
+                      // eslint-disable-next-line react/jsx-indent
+                        <></>
+                    )))
+                  }
+
+                  <div className="wrap-of-price">
+                    <p className="p-price">PRICE:</p>
+                    {
+                      (
+                        <p className="price">{compareTo(currentItem, currentCurrency)}</p>
+                      )
                     }
-                    <div className="description">
-                        <div ref={this.descriptionHeight}
-                            className={descriptionHeight >= 150 && !fullDescription ?
-                                "description-data-more"
-                                :
-                                "description-data-less"}
-                            dangerouslySetInnerHTML={createMarkup(description)} />
-                        {
-                            descriptionHeight >= 150 ?
-                                fullDescription ?
-                                    <button className="show-more-button" onClick={() => this.setFullDescription(false)}>SHOW LESS</button>
-                                    :
-                                    <button className="show-more-button" onClick={() => this.setFullDescription(true)}>SHOW MORE</button>
-                                :
-                                null
-                        }
-                    </div>
+                  </div>
+                  {
+                    currentItem.inStock && currentItem.attributes.length === currentAttLength ?
+                      <button className="add-from-single" 
+                        onClick={() => pushToCart(currentItem)}>ADD TO CART</button>
+                      :
+                      <button className="add-from-single-blocked">ADD TO CART</button>
+                  }
+                  <Description description={currentItem.description}/>
                 </div>
-            </div>
-        );
-    }
+              </div>
+              :
+              <ErrorPage descriptionError={currentItem.descriptionError}/>
+        }
+      </>
+    );
+  }
 }
 
 SingleItem.propTypes = {
-    currentItem: PropTypes.object,
-    brand: PropTypes.string,
-    name: PropTypes.string,
-    gallery: PropTypes.array,
-    description: PropTypes.string,
-    attributes: PropTypes.array,
-    inStock: PropTypes.bool,
-    currentCurrency: PropTypes.string,
-    pushToCart: PropTypes.func,
-}
+  match: PropTypes.object,
+  currentItem: PropTypes.object,
+  currentCurrency: PropTypes.string,
+  currentItemLoader: PropTypes.bool,
+  getCurrentItem: PropTypes.func,
+  pushToCart: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
-    return {
-        currentItem: state.products.currentItem,
-        currentCurrency: state.otherData.currentCurrency,
-    }
-}
+  return {
+    currentItem: state.products.currentItem,
+    currentCurrency: state.otherData.currentCurrency,
+    currentItemLoader: state.loadersInfo.currentItemLoader,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        pushToCart: (good) => dispatch(pushToCart(good)),
-    }
-}
+  return {
+    getCurrentItem: (itemId) => dispatch(getCurrentItem(itemId)),
+    pushToCart: (good) => dispatch(pushToCart(good)),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleItem);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SingleItem));

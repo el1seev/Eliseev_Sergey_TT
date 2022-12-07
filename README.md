@@ -8,12 +8,14 @@ https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-(
 
 ## Requirements
 
-###Main requirements:
+### Main requirements:
 - Only class components
 - Without UI libraries
 - Apollo queries
-###Link:
+
+### Link:
 https://www.notion.so/Entry-React-developer-TEST-39f601f8aa3f48ac88c4a8fefda304c1
 
 ## RESULT
 
+![image] https://imgflip.com/gif/73iuao

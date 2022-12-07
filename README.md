@@ -18,4 +18,4 @@ https://www.notion.so/Entry-React-developer-TEST-39f601f8aa3f48ac88c4a8fefda304c
 
 ## RESULT
 
-![image](https://imgflip.com/gif/73iuao)
+![image](https://imgflip.com/embed/73iuao)

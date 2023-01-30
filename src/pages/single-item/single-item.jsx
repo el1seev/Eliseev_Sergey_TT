@@ -47,9 +47,9 @@ class SingleItem extends React.PureComponent {
     if(this.props.currentItem.error !== true && prevState.activeValue !== this.state.activeValue){
       this.setCurrentAttLength(lengthOfShipped(this.props.currentItem));
     }
-    if(this.props.currentItem.error !== true && prevProps.currentItem !== this.props.currentItem){
-      this.setMainView(this.props.currentItem.gallery[0]);
-    }
+    // if(this.props.currentItem.error !== true && prevProps.currentItem !== this.props.currentItem){
+    //   this.setMainView(this.props.currentItem.gallery[0]);
+    // }
   }
 
 
@@ -67,9 +67,9 @@ class SingleItem extends React.PureComponent {
               <div className="single-item-component">
                 <div className="wrap-of-small-img">
                   {
-                    (currentItem.gallery.map((images) => (
-                      <button className="switch-image" onClick={() => this.setMainView(images)}>
-                        <img src={images} className="small-single-item-showcase" alt={currentItem.name} />
+                    (currentItem.gallery.map((image) => (
+                      <button className="switch-image" onClick={() => this.setMainView(image)}>
+                        <img src={image} className="small-single-item-showcase" alt={currentItem.name} />
                       </button>
                     )))
                   }
@@ -77,11 +77,11 @@ class SingleItem extends React.PureComponent {
 
                 {
                   currentItem.inStock ? 
-                    <img src={mainImage}
+                    <img src={mainImage || currentItem.gallery[0]}
                       className="single-item-showcase" alt={currentItem.name} />
                     :
                     <div className="out-of-stock">
-                      <img src={mainImage} className="single-item-showcase"
+                      <img src={mainImage || currentItem.gallery[0]} className="single-item-showcase"
                         alt={currentItem.name} style={{opacity: 0.5}}/>
                       <p className="out-of-stock-text">OUT OF STOCK</p>
                     </div>

@@ -16,6 +16,3 @@ https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-(
 ### Link:
 https://www.notion.so/Entry-React-developer-TEST-39f601f8aa3f48ac88c4a8fefda304c1
 
-## RESULT
-
-![image](https://imgflip.com/embed/73iuao)
